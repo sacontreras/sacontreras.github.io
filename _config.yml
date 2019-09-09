@@ -1,11 +1,11 @@
 # Site settings
 author: Steven Contreras
-title: 
+title: My Path to Enlightenment: Adventures in Data Science
 header-img: img/home-bg.png
 email: steve.a.contreras@gmail.com
 copyright_name: Steven Contreras
 description: > # this means to ignore newlines until "baseurl:"
-  
+  The Journey Begins
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  sacontreras
