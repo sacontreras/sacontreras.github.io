@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "Data Science - The Adenture Begins!"
+title:      "Data Science - The Adventure Begins!"
 date:       2019-09-13 21:41:23 +0000
 permalink:  data_science_-_the_adenture_begins
 ---
