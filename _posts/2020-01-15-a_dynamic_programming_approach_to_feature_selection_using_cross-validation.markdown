@@ -19,7 +19,7 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 </style>
 
 <h2>The Algorithm</h2>
-The algorithm builds the entire <i>candidate</i>-solution space (size is <span>\\({n \choose k}\\)</span>) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
+The algorithm builds the entire <i>candidate</i>-solution space (size is <span>\\( \sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1 \\)</span>, where \\(n\\) is the number of starting features) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
 
 It turns out the candidate-solution space does indeed have the two qualities required in order to leverage Dynamic Programming:
 <ol>
