@@ -299,7 +299,7 @@ Here are a few snippets from that notebook.
 <h3>Snippet 3:</h3>
 <img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png">
 <p><br><br>
-Please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb" target="_blank">the notebook</a> for the full example.
+The snippets above are just that: snippets and are thus incomplete.  To see the full results, please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb" target="_blank">the example Jupyter notebook</a>.
 <p><br><br>
 <h1>References</h1>
 Gavis-Hughson, S. (2019). The Ultimate Guide to Dynamic Programming - Simple Programmer. Retrieved from https://simpleprogrammer.com/guide-dynamic-programming/
