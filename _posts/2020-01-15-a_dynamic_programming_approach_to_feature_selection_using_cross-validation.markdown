@@ -77,6 +77,7 @@ For instance, starting with \\(n=18\\) features, we have \\(\sum_{r=1}^{18} {18 
 
 But, because it uses the dynamic programming approach (vs. brute force), this algorithm is nevertheless fast, all things considered.
 <p><br><br>
+
 ## Source Code
 The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to [this github repository](https://github.com/sacontreras/dsc-dp-cross-validation).  But it can be adapted for use outside of Juptyer Notebooks as you wish.
 
