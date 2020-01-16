@@ -113,7 +113,7 @@ But, because it uses the dynamic programming approach (vs. brute force), this al
 
 <h2>Source Code</h2>
 
-The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to <a href="https://github.com/sacontreras/dsc-dp-cross-validation" target="_blank">this github repository</a>.  But it can be adapted for use outside of Juptyer Notebooks as you wish.
+The full source code is written in Python, specifically for Jupyter Notebooks, and was uploaded to <a href="https://github.com/sacontreras/dsc-dp-cross-validation" target="_blank">this github repository</a>.  But it can be adapted for use outside of Juptyer Notebooks as you wish.
 <p><br>
 The essence is captured in the following function, a snippet from full source code:
 <pre>
