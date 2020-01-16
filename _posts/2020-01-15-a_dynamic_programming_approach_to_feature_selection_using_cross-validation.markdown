@@ -44,7 +44,7 @@ set \\( feature\\_subsets := \\) build each of \\( k\\_features := {n \choose k}
 set \\(depth := k - 1\\)<br><br>
 for each \\( feature\\_subset \\) in \\( \{feature\\_subset: feature\\_subset \in feature\\_subsets\} \\)<br>
 <span class="indent">
-set \\( closest\\_prior\\_depth := min(len(optimal\\_feature\\_subsets)-1, depth-1) \\)<br><br>
+set \\( closest\\_prior\\_depth \\) \\( := min(len(optimal\\_feature\\_subsets)-1, depth-1) \\)<br><br>
 //qualify that current \\( feature\\_subset \\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
 if \\( depth > 0 \\) and \\( closest\\_prior\\_depth \ge 0 \\) then<br>
 <span class="indent">
