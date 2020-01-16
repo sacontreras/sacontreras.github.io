@@ -16,7 +16,7 @@ It turns out the candidate-solution space does indeed have the two qualities req
     
 <font style="font-size: x-small">Note: for an excellent guide on Dynamic Programming please see Gavis-Hughson, S. (2019) listed in the References section.</font>
     
-The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of \\({n \choose k}\\) features, where $n$ is the total number of *continuous* features that we start with and \\(k\\) varies from \\(1\\) to \\(n\\).  
+The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of \\({n \choose k}\\) features, where \\(n\\) is the total number of *continuous* features that we start with and \\(k\\) varies from \\(1\\) to \\(n\\).  
 
 Thus, feature-combinations occurring deeper in the tree will be consisered non-optimal (and thereby discarded) if they do not include optimal feature combinations occurring earlier in the tree.  Therefore, by using a Dynamic Programming approachy, <b>we avoid needlessly recomputing and re-testing optimal sub-problems that have already been encountered</b>.
 
@@ -26,41 +26,41 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
-&nbsp;&nbsp;&nbsp;set \\(optimal\_feature\_subsets[] := null\\) #this is the table of optimal sub-problems<br><br>
-&nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting features\}|\\)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(feature\_subsets :=\\) build each of \\(k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
+&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets[] := null\\) #this is the table of optimal sub-problems<br><br>
+&nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\\ features\}|\\)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(feature\\_subsets :=\\) build each of \\(k\\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(depth := k - 1\\)<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each \\(feature\_subset\\) in \\(\{feature\_subset: feature\_subset \in feature\_subsets\}\\) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)\\)<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#qualify that current \\(feature\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(depth > 0\\) and \\(closest\_prior\_depth \ge 0\\) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(last\_optimal\_feat\_combo := optimal\_feature\_subsets[closest\_prior\_depth]\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(last\_optimal\_feat\_combo$ not in $feature\_subset\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this $feature\_subset$ and loop to the next<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each \\(feature\\_subset\\) in \\(\{feature\\_subset: feature\\_subset \in feature\\_subsets\}\\) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(closest\\_prior\\_depth := min(len(optimal\\_feature\\_subsets)-1, depth-1)\\)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#qualify that current \\(feature\\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(depth > 0\\) and \\(closest\\_prior\\_depth \ge 0\\) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(last\\_optimal\\_feat\\_combo := optimal\\_feature\\_subsets[closest\\_prior\\_depth]\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(last\\_optimal\\_feat\\_combo$ not in $feature\\_subset\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this $feature\\_subset$ and loop to the next<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this \\(feature\_subset\\) contains \\(last\_optimal\_feat\_combo\\) (or \\(depth==0\\) and this \\(feature\_subset\\) is embryonic)<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this \\(feature\\_subset\\) contains \\(last\\_optimal\\_feat\\_combo\\) (or \\(depth==0\\) and this \\(feature\_subset\\) is embryonic)<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(kf :=\\) build 5-kfolds based on $feature\_subset$<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each \\(fold\\) in \\(kf\\) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split data set into \\(partition_{test}\\) and \\(partition_{train}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(lin\_reg\_model :=\\) build linear regression from \\(partition_{train}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{train\_predicted} :=\\) compute predictions with \\(lin\_reg\_model$ from $partition_{train}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{test\_predicted} :=\\) compute predictions with \\(lin\_reg\_model$ from $partition_{test}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{train} :=\\) compute Root Mean Squared Error between \\(target_{train\_actual}\\) and \\(target_{train\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{train}\\))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{test} :=\\) compute Root Mean Squared Error between \\(target_{test\_actual}\\) and \\(target_{test\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{test}\\))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append \\((RMSE_{train}, RMSE_{test})\\) to \\(scores\_list_{fold}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(lin\\_reg\\_model :=\\) build linear regression from \\(partition_{train}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{train\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model$ from $partition_{train}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{test\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model$ from $partition_{test}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{train} :=\\) compute Root Mean Squared Error between \\(target_{train\\_actual}\\) and \\(target_{train\\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{train}\\))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{test} :=\\) compute Root Mean Squared Error between \\(target_{test\\_actual}\\) and \\(target_{test\\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{test}\\))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append \\((RMSE_{train}, RMSE_{test})\\) to \\(scores\\_list_{fold}\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(scores\_list_{fold, RMSE_{train}} :=\\) extract all \\(RMSE_{train}$ from $scores\_list_{fold}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE := \frac{\sum RMSE_{train}}{size(scores\_list_{fold, RMSE_{train}})}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(scores\_list_{fold, RMSE_{test}} :=\\) extract all \\(RMSE_{test}\\) from \\(scores\_list_{fold}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(\Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\_list_{fold, RMSE_{train}})}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(scores\\_list_{fold, RMSE_{train}} :=\\) extract all \\(RMSE_{train}\\) from \\(scores\\_list_{fold}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE := \frac{\sum RMSE_{train}}{size(scores\\_list_{fold, RMSE_{train}})}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(scores\\_list_{fold, RMSE_{test}} :=\\) extract all \\(RMSE_{test}\\) from \\(scores\\_list_{fold}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(\Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\\_list_{fold, RMSE_{train}})}\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(RMSE_{best}\\) is null then {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{best} := RMSE\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(\Delta RMSE_{best} := \Delta RMSE\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(RMSE < RMSE_{best}\\) AND \\(lin\_reg\_model.condition\_number \le 100\\) then {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(RMSE < RMSE_{best}\\) AND \\(lin\_reg\\_model.condition\_number \le 100\\) then {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{best} := RMSE\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(\Delta RMSE_{best} := \Delta RMSE\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(optimal\_feature\_subsets[depth] := feature\_subset\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets[depth] := feature\\_subset\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
