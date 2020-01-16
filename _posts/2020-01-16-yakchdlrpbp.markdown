@@ -21,9 +21,9 @@ YAKCHDLRPBP stands for "Yet Another King County Housing Data Linear Regression P
 
 Yep.  That's right.  I just coined a new acronym.
 
-But seriously, though, using the King County housing data set to build a Linear Regression project is so common these days that one can almost say, "if you've seen one then you'vre seen them all".
+But seriously, though, using the King County housing data set to build a Linear Regression project is so common these days that one can almost say, "if you've seen one then you've seen them all".
 
-Well, my hope is that my project stands out so that one can take away something new, so that the above euphamism doesn't apply.
+Well, my hope is that my project stands out so that one can take away something new so that the above euphemism doesn't apply.
 
 You be the judge.
 
@@ -77,14 +77,51 @@ According to James, Witten, Hastie & Tibshirani,
     a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.  (James, Witten, Hastie & Tibshirani, 2012)
 
 #### Exploratory Data Analysis and Regression Diagnostics
-Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis phase.  A primary output of this phase is to produce a cleaned data set in which outlier and null values have been "dealt with".  Additionally, Regression Diagnostics, via visualization, provide some insight into the distributions and kurtosis of predictors, as they relate to the target response variable.
+Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis phase.  A primary output of this phase is to produce a cleaned data set in which outlier and null values have been "dealt with".  Additionally, Regression Diagnostics, via visualization, provide some insight into the distributions and kurtosis of predictors, as they relate to the target response variable.  **Regression Diagnostics are, therefore, utilized to provide insight into whether or not predictors must be *transformed***.
 
 #### Forward Selection of Features
 Rather than making "educated guesses" in the feature selection process, after cleaning the data set, I use *cross-validation*, *k-folds*, and *combinatorics* to select the "best" model (from the best feature-set combination) built on training data when compared to testing data, based a simple, ***greedy* forward selection** using dynamic programming. 
 
-The details and pseudocode for the algorithm are listed in the [Cross-Validation Forward Selection of Features](Appendix.ipynb) in the appendix.  
+I authored <a href="https://sacontreras.github.io/a_dynamic_programming_approach_to_feature_selection_using_cross-validation">another blog post</a> focusing specifically on the algorithm I wrote to accomplish this task.
 
-So, some effort is made up front to "intelligently" reduce the set of starting features by building a preliminary model and then removing features which obviously do not inluence **price** or are highly correlated, based on Regression Diagnostics as well as the *Variance Inflation Factor* (VIF) of a given feature.
+But, some effort is made up front to "intelligently" reduce the set of starting features by building a preliminary model and then removing features which obviously do not inluence **price** or are highly correlated, based on Regression Diagnostics as well as the *Variance Inflation Factor* (VIF) of a given feature.
+
+#### Conditions for success - i.e. whether a linear regression model is "good" or "bad"
+Given the following conditions, we have a "GOOD" model when:
+<ol>
+    <li>\\(R^2 > .60\\)</li>
+    <li>\\(|RMSE(test) - RMSE(train)| \approx 0\\)</li>
+    <li>low <i>Condition Number</i> (measure of colinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**.</li>
+</ol>
+
+The first condition says that we want models that determine the target with greater than 60% "confidence".
+
+The second condition says that the bias toward the training data is minimal when compared to how the model performs on the "hold-out" test data.
+
+The third condition requires that colinearity be mitigated/minimized.
+
+#### Toward Regression: Most important aspect is understanding the data!
+To that end, I follow the standard OSEMN model (Lau, 2019) and proceed according to the following steps:
+<ol>
+    <li>Import all necessary libraries and the the data set</li>
+    <li>Cleaning the data set:
+        <ol>
+            <li>Clean null values, if any</li>
+            <li>Clean outlier values, if any</li>
+            <li>Convert feature data types as necessary</li>
+        </ol>
+    </li>
+    <li>EDA: Gain familiarity with the data set by building a preliminary linear regression model
+        <ol>
+            <li>Utilize Regression Diagnostics: <b>using Regression Diagnostics is of fundamental importance since it will provide some guidance on whether or not a feature should be transformed</b></li>
+            <li>Explore distriubutions</li>
+            <li>Explore collinearity</li>
+        </ol>
+    </li>
+    <li>EDA: Scale, Normalize, Transform features in the data set as necessary for the working model</li>
+</ol>
 
 # References
 James, G., Witten, D., Hastie, T., & Tibshirani, R. (2012). An Introduction to Statistical Learning with Applications in R [Ebook] (7th ed.). New York, New York: Springer Science+Business Media. Retrieved from https://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf
+
+Lau, Dr. C. H. (2019). 5 Steps of a Data Science Project Lifecycle. Retrieved from https://towardsdatascience.com/5-steps-of-a-data-science-project-lifecycle-26c50372b492

@@ -68,13 +68,13 @@ set \\( kfolds := \\) build 5-kfolds based on \\( kfs \\)<br>
 for each \\( fold \\) in \\( kfolds \\) {<br>
 <span class="indent">
 split data set into \\( partition_{test} \\) and \\( partition_{train} \\)<br>
-COMMENT: let \\( lrm \\) denote the linear regression model built from training data from this \\( fold \\)
+COMMENT: let \\( lrm \\) denote the linear regression model built from training data from this \\( fold \\)<br>
 set \\( lrm := \\) build linear regression from \\( partition_{train} \\)<br>
 set \\( target_{train, predicted} := \\) compute predictions with \\( lrm \\) from \\( partition_{train} \\)<br>
 set \\( target_{test, predicted} := \\) compute predictions with \\( lrm \\) from \\( partition_{test} \\)<br>
 set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train, actual} \\) and \\( target_{train, predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
 set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test, actual} \\) and \\( target_{test, predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
-COMMENT: let \\( sl_{fold} \\) denote the list of tracked scores for each \\( fold \\)
+COMMENT: let \\( sl_{fold} \\) denote the list of tracked scores for each \\( fold \\)<br>
 append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( sl_{fold} \\)<br>
 </span><br><br>
 set \\( sl_{fold, RMSE_{train}} := \\) extract all \\( RMSE_{train} \\) from \\( sl_{fold} \\)<br>
