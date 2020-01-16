@@ -25,7 +25,7 @@ In this way, we minimize residuals and thereby select the most predictive model,
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
 &nbsp;&nbsp;&nbsp;#this is the table of optimal sub-problems<br>
-&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets:= new\\list\\)<br><br>
+&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets:= new\\ list\\)<br><br>
 &nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\\ features\}|\\)) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(feature\\_subsets :=\\) build each of \\(k\\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(depth := k - 1\\)<br><br>
