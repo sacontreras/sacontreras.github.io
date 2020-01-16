@@ -12,6 +12,7 @@ github_username:  sacontreras
 
 # Build settings
 markdown: kramdown
+  math_engine: katex
 highlighter: rouge
 permalink: pretty
 paginate: 5
