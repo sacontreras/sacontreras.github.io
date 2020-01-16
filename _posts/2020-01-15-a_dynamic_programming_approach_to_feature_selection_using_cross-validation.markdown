@@ -14,8 +14,6 @@ It turns out the candidate-solution space does indeed have the two qualities req
     <li>Overlapping Sub-problems</li>
 </ol>
     
-<font style="font-size: x-small">Note: for an excellent guide on Dynamic Programming please see Gavis-Hughson, S. (2019) listed in the References section.</font>
-    
 The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of \\({n \choose k}\\) features, where \\(n\\) is the total number of *continuous* features that we start with and \\(k\\) varies from \\(1\\) to \\(n\\).  
 
 Thus, feature-combinations occurring deeper in the tree will be consisered non-optimal (and thereby discarded) if they do not include optimal feature combinations occurring earlier in the tree.  Therefore, by using a Dynamic Programming approachy, <b>we avoid needlessly recomputing and re-testing optimal sub-problems that have already been encountered</b>.
@@ -26,7 +24,8 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
-&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets[] := null\\) #this is the table of optimal sub-problems<br><br>
+&nbsp;&nbsp;&nbsp;#this is the table of optimal sub-problems<br>
+&nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets[] := null\\)<br><br>
 &nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\\ features\}|\\)) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(feature\\_subsets :=\\) build each of \\(k\\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(depth := k - 1\\)<br><br>
