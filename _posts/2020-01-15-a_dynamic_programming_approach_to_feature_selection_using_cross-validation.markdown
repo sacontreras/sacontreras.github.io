@@ -105,7 +105,7 @@ But, because it uses the dynamic programming approach (vs. brute force), this al
 
 <h2>Source Code</h2>
 
-The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to [this github repository](https://github.com/sacontreras/dsc-dp-cross-validation).  But it can be adapted for use outside of Juptyer Notebooks as you wish.
+The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to <a href="https://github.com/sacontreras/dsc-dp-cross-validation" target="_blank">this github repository</a>.  But it can be adapted for use outside of Juptyer Notebooks as you wish.
 <p><br>
 The essence is captured in the following function, a snippet from full source code:
 <pre>
@@ -278,7 +278,7 @@ def cv_selection_dp(
 <p><br><br>
 <h2>Example</h2>
 
-I have written a <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb">sample Jupyter Notebook</a> that utilizes the API and uploaded it to the <a href="https://github.com/sacontreras/dsc-dp-cross-validation">same repository</a> in which the source code is found.
+I have written a <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb" target="_blank">sample Jupyter Notebook</a> that utilizes the API and uploaded it to the <a href="https://github.com/sacontreras/dsc-dp-cross-validation" target="_blank">same repository</a> in which the source code is found.
 <p><br>
 Here are a few snippets from that notebook.
 <p><br>
@@ -291,7 +291,7 @@ Here are a few snippets from that notebook.
 <h3>Snippet 3:</h3>
 <img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png">
 <p><br><br>
-Please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb">the notebook</a> for the full example.
+Please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb" target="_blank">the notebook</a> for the full example.
 <p><br><br>
 <h1>References</h1>
 Gavis-Hughson, S. (2019). The Ultimate Guide to Dynamic Programming - Simple Programmer. Retrieved from https://simpleprogrammer.com/guide-dynamic-programming/
