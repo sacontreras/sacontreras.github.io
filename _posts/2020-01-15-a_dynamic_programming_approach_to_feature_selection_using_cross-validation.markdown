@@ -37,7 +37,7 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <span class="pseudocode">
-//this is the table of optimal sub-problems<br>
+COMMENT: this is the table of optimal sub-problems<br>
 set \\( optimal\\_feature\\_subsets := \\) new list<br><br>
 for \\( k := 1 \\) to \\( n \\) (where \\( n := |\{starting\\ features\}| \\))<br>
 <span class="indent">
@@ -46,7 +46,7 @@ set \\(depth := k - 1\\)<br><br>
 for each \\( feature\\_subset \\) in \\( \\{feature\\_subset: feature\\_subset \in feature\\_subsets\\} \\)<br>
 <span class="indent">
 set \\( closest\\_prior\\_depth \\) \\( := min(len(optimal\\_feature\\_subsets)-1, depth-1) \\)<br><br>
-//qualify that current \\( feature\\_subset \\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
+COMMENT: qualify that current \\( feature\\_subset \\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
 if \\( depth > 0 \\) and \\( closest\\_prior\\_depth \ge 0 \\) then<br>
 <span class="indent">
 set \\( last\\_optimal\\_feat\\_combo := optimal\\_feature\\_subset[closest\\_prior\\_depth] \\)<br>
@@ -56,7 +56,7 @@ continue #discard this \\( feature\\_subset \\) and loop to the next<br>
 </span>
 </span>
 <br><br>
-//otherwise this \\( feature\\_subset \\) contains \\( last\\_optimal\\_feat\\_combo \\) (or \\( depth==0 \\) and this \\( feature\\_subset \\) is embryonic)<br>
+COMMENT: otherwise this \\( feature\\_subset \\) contains \\( last\\_optimal\\_feat\\_combo \\) (or \\( depth==0 \\) and this \\( feature\\_subset \\) is embryonic)<br>
 set \\( kf := \\) build 5-kfolds based on \\( feature\\_subset \\)<br>
 <br>
 for each \\(fold\\) in \\(kf\\) {<br>
