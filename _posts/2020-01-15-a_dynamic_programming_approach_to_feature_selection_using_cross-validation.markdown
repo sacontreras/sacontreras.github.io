@@ -34,7 +34,7 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#qualify that current \\(feature\\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(depth > 0\\) and \\(closest\\_prior\\_depth \ge 0\\) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(last\\_optimal\\_feat\\_combo := optimal\\_feature\\_subsets[closest\\_prior\\_depth]\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(last\\_optimal\\_feat\\_combo$ not in $feature\\_subset\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \\(last\\_optimal\\_feat\\_combo\\) not in \\(feature\\_subset\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this \\(feature\\_subset\\) and loop to the next<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this \\(feature\\_subset\\) contains \\(last\\_optimal\\_feat\\_combo\\) (or \\(depth==0\\) and this \\(feature\\_subset\\) is embryonic)<br> 
