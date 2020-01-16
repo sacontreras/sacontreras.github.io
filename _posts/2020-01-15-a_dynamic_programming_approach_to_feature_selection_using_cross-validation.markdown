@@ -23,6 +23,7 @@ Thus, feature-combinations occurring deeper in the tree will be consisered non-o
 In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized \\(RMSE\\)) **non-colinear** feature-combination subset from the starting set of all features.
 
 The procedure for this is summarized below in pseudo-code:<br><br>
+{::options parse_block_html="true" /}
 <div style="font-family: 'Lucida Console'; background-color: LightGray">
 //this is the table of optimal sub-problems<br>
 
@@ -100,7 +101,7 @@ set \\( optimal\_feature\_subsets[depth] := feature\_subset \\)
 }
 </div>
 <br>
-
+{::options parse_block_html="false" /}
 **This results in cross-validation selecting the best *non-colinear* feature-combination subset for each \\( k \\), from \\( n \\) starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\( \Delta RMSE \\))**.
 
 The total number of all possible combinations the algorithm will select from is \\( \sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1 \\), but it avoids traversing that entire space by leveraging dynamic programming.
