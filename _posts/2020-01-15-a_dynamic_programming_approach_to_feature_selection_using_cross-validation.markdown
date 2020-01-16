@@ -86,6 +86,7 @@ if \\( RMSE_{best} \\) is null then<br>
 set \\( RMSE_{best} := RMSE \\)<br>
 set \\( \Delta RMSE_{best} := \Delta RMSE \\)<br>
 </span>
+<br>
 else<br>
 <span class="indent">
 if \\( RMSE < RMSE_{best} \\) AND \\( lrm.condition\\_number \le 100 \\) then<br>
