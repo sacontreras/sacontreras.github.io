@@ -6,7 +6,7 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 ---
 
 <h2>The Algorithm</h2>
-The algorithm builds the entire <i>candidate</i>-solution space (size is \\({n \choose k}\\)) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
+The algorithm builds the entire <i>candidate</i>-solution space (size is <span>\\({n \choose k}\\)</span>) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
 
 It turns out the candidate-solution space does indeed have the two qualities required in order to leverage Dynamic Programming:
 <ol>
@@ -25,13 +25,11 @@ In this way, we minimize residuals and thereby select the most predictive model,
 The procedure for this is summarized below in pseudo-code:<br><br>
 {::options parse_block_html="true" /}
 <div style="font-family: 'Lucida Console'; background-color: LightGray">
-<span>
 //this is the table of optimal sub-problems<br>
 
 set \\( optimal\_feature\_subsets := \\) new list<br><br>
 
 for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\ features\}|\\)) {<br>
-</span>
 <div style="margin-left: 40px;">
 
 set \\( feature\_subsets := \\) build each of \\(k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
