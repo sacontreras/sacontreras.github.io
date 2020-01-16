@@ -20,7 +20,7 @@ Thus, feature-combinations occurring deeper in the tree will be consisered non-o
 
 *Cross-validation* over 5 *k-folds* is used with a scoring method to select the model (built on training data) that produces the least RMSE and the difference between that RMSE vs. the RMSE computed on the testing data, **with Condition Number \\(\le 100\\)** (in order <b>to minimize colinearity</b>).  This basis is taken *directly* from statsmodels Github [source code](https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary) for the OLS fit results `summary` method but I restrict it even further (statsmodels defines non-colinearity by virtue of this value being less than 1000). ("statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code", 2019)
 
-In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized $RMSE$) **non-colinear** feature-combination subset from the starting set of all features.
+In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized \\(RMSE\\)) **non-colinear** feature-combination subset from the starting set of all features.
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
@@ -38,7 +38,7 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this \\(feature\\_subset\\) and loop to the next<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this \\(feature\\_subset\\) contains \\(last\\_optimal\\_feat\\_combo\\) (or \\(depth==0\\) and this \\(feature\\_subset\\) is embryonic)<br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(kf :=\\) build 5-kfolds based on $feature\_subset$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(kf :=\\) build 5-kfolds based on \\(feature\\_subset\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each \\(fold\\) in \\(kf\\) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split data set into \\(partition_{test}\\) and \\(partition_{train}\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(lin\\_reg\\_model :=\\) build linear regression from \\(partition_{train}\\)<br>
