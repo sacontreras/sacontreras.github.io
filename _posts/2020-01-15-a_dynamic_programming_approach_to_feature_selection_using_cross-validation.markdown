@@ -24,33 +24,33 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 {::options parse_block_html="true" /}
-<div style="font-family: 'Lucida Console'; background-color: LightGray">
+<span style="font-family: 'Lucida Console'; background-color: LightGray">
 //this is the table of optimal sub-problems<br>
 
 set \\( optimal\_feature\_subsets := \\) new list<br><br>
 
 for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\ features\}|\\)) {<br>
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 set \\( feature\_subsets := \\) build each of \\(k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
 
 set \\(depth := k - 1\\)<br><br>
 for each \\(feature\_subset\\) in \\(\{feature\_subset: feature\_subset \in feature\_subsets\}\\) {<br>
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 set \\(closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)\\)<br><br>
 //qualify that current \\(feature\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
 
 if \\(depth > 0\\) and \\(closest\_prior\_depth \ge 0\\) {
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 set \\( last\_optimal\_feat\_combo := optimal\_feature\_subset[closest\_prior\_depth] \\)<br>
 if \\( last\_optimal\_feat\_combo \\) not in \\( feature\_subset \\)
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 continue #discard this \\( feature\_subset \\) and loop to the next
-</div>
-</div>
+</span>
+</span>
 }<br>
 <br>
 //otherwise this \\( feature\_subset \\) contains \\( last\_optimal\_feat\_combo \\) (or \\( depth==0 \\) and this \\( feature\_subset \\) is embryonic)<br>
@@ -59,7 +59,7 @@ set \\(kf :=\\) build 5-kfolds based on \\( feature\_subset \\)<br>
 <br>
 
 for each \\(fold\\) in \\(kf\\) {
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 split data set into \\( partition_{test} \\) and \\(partition_{train} \\)<br>
 set \\(lin\_reg\_model := \\) build linear regression from \\( partition_{train} \\)<br>
@@ -68,7 +68,7 @@ set \\( target_{test\_predicted} := \\) compute predictions with \\( lin\_reg\_m
 set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train\_actual} \\) and \\( target_{train\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
 set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test\_actual} \\) and \\( target_{test\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
 append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( scores\_list_{fold} \\)
-</div>
+</span>
 }
 <br><br>
 
@@ -77,29 +77,29 @@ set \\( RMSE := \frac{\sum RMSE_{train}}{size(scores\_list_{fold, RMSE_{train}})
 set \\( scores\_list_{fold, RMSE_{test}} := \\) extract all \\( RMSE_{test} \\) from \\( scores\_list_{fold} \\)<br>
 set \\( \Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\_list_{fold, RMSE_{train}})} \\)<br><br>
 if \\( RMSE_{best} \\) is null then {
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 set \\( RMSE_{best} := RMSE \\)<br>
 set \\( \Delta RMSE_{best} := \Delta RMSE \\)
-</div>
+</span>
 } else {
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 if \\( RMSE < RMSE_{best} \\) AND \\( lin\_reg\_model.condition\_number \le 100 \\) then {
-<div style="margin-left: 40px;">
+<span style="margin-left: 40px;">
 
 set \\(RMSE_{best} := RMSE\\)<br>
 set \\( \Delta RMSE_{best} := \Delta RMSE \\)<br>
 set \\( optimal\_feature\_subsets[depth] := feature\_subset \\)
-</div>
+</span>
 }
-</div>
+</span>
 }
-</div>
+</span>
 }
-</div>
+</span>
 }
-</div>
+</span>
 <br>
 {::options parse_block_html="false" /}
 **This results in cross-validation selecting the best *non-colinear* feature-combination subset for each \\( k \\), from \\( n \\) starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\( \Delta RMSE \\))**.
