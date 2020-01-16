@@ -6,7 +6,7 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 ---
 
 ## The Algorithm
-The algorithm builds the entire <i>candidate</i>-solution space (size is <img src="https://quicklatex.com/cache3/0d/ql_77b3a68db664a7bd5bdad5352dd6010d_l3.png">) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
+The algorithm builds the entire <i>candidate</i>-solution space (size is ${n \choose k}$) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
 
 It turns out the candidate-solution space does indeed have the two qualities required in order to leverage Dynamic Programming:
     1. Optimal Substructure
@@ -14,51 +14,51 @@ It turns out the candidate-solution space does indeed have the two qualities req
     
 <font style="font-size: x-small">Note: for an excellent guide on Dynamic Programming please see Gavis-Hughson, S. (2019) listed in the References section.</font>
     
-The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of <img src="https://quicklatex.com/cache3/0d/ql_77b3a68db664a7bd5bdad5352dd6010d_l3.png"> features, where <img src="https://quicklatex.com/cache3/29/ql_831c2406b034c3ff4a4734ebb9a95129_l3.png"> is the total number of *continuous* features that we start with and <img src="https://quicklatex.com/cache3/b5/ql_f715c458bdf31ab130c365714436a3b5_l3.png"> varies from 1 to <img src="https://quicklatex.com/cache3/29/ql_831c2406b034c3ff4a4734ebb9a95129_l3.png">.  
+The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of ${n \choose k}$ features, where $n$ is the total number of *continuous* features that we start with and $k$ varies from $1$ to $n$.  
 
 Thus, feature-combinations occurring deeper in the tree will be consisered non-optimal (and thereby discarded) if they do not include optimal feature combinations occurring earlier in the tree.  Therefore, by using a Dynamic Programming approachy, <b>we avoid needlessly recomputing and re-testing optimal sub-problems that have already been encountered</b>.
 
-*Cross-validation* over 5 *k-folds* is used with a scoring method to select the model (built on training data) that produces the least RMSE and the difference between that RMSE vs. the RMSE computed on the testing data, **with Condition Number <img src="https://quicklatex.com/cache3/04/ql_9675992d76ff1338f89a68e45eb74d04_l3.png">** (in order <b>to minimize colinearity</b>).  This basis is taken *directly* from statsmodels Github [source code](https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary) for the OLS fit results `summary` method but I restrict it even further (statsmodels defines non-colinearity by virtue of this value being less than 1000). ("statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code", 2019)
+*Cross-validation* over 5 *k-folds* is used with a scoring method to select the model (built on training data) that produces the least RMSE and the difference between that RMSE vs. the RMSE computed on the testing data, **with Condition Number $\le 100$** (in order <b>to minimize colinearity</b>).  This basis is taken *directly* from statsmodels Github [source code](https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary) for the OLS fit results `summary` method but I restrict it even further (statsmodels defines non-colinearity by virtue of this value being less than 1000). ("statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code", 2019)
 
 In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized $RMSE$) **non-colinear** feature-combination subset from the starting set of all features.
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
-&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/e2/ql_c4a3d1d91110b6817593708c295f19e2_l3.png"> #this is the table of optimal sub-problems<br><br>
-&nbsp;&nbsp;&nbsp;for <img src="https://quicklatex.com/cache3/cd/ql_492369426810944b445aa6019e1fa6cd_l3.png"> to <img src="https://quicklatex.com/cache3/29/ql_831c2406b034c3ff4a4734ebb9a95129_l3.png"> (where <img src="https://quicklatex.com/cache3/c2/ql_67669894a1b5f90b828e772828fffec2_l3.png">) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/d9/ql_853c2a75286925e908b9b24e68dd25d9_l3.png"> build each of <img src="https://quicklatex.com/cache3/6f/ql_a2d1e895cf2c46ec9066a6cccfcf536f_l3.png"> (from <img src="https://quicklatex.com/cache3/29/ql_831c2406b034c3ff4a4734ebb9a95129_l3.png"> starting features)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/16/ql_8b8340cae2e5aed39e04221e24d5e816_l3.png"><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"> in <img src="https://quicklatex.com/cache3/03/ql_42e48dbf5607ca98e15f6eff1ad74603_l3.png"> {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/2e/ql_07d3ceebdadcc921bce146d6383a3d2e_l3.png"><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#qualify that current <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"> is built from the last optimal sub-problem already computed - if not, then discard it<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if <img src="https://quicklatex.com/cache3/3c/ql_c043bc1d2d42b22f1eec5fea67514f3c_l3.png"> and <img src="https://quicklatex.com/cache3/df/ql_998f43c9d208a3b58add49f47979c5df_l3.png"> {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/ae/ql_28cec883d512946a7b2d0abd94e7deae_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if <img src="https://quicklatex.com/cache3/9e/ql_178e9e178cb8c8575dc65bb28b4caa9e_l3.png"> not in <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"> and loop to the next<br> 
+&nbsp;&nbsp;&nbsp;set $optimal\_feature\_subsets[] := null$ #this is the table of optimal sub-problems<br><br>
+&nbsp;&nbsp;&nbsp;for $k := 1$ to $n$ (where $n := |\{starting features\}|$) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $feature\_subsets :=$ build each of $k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}$ (from $n$ starting features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $depth := k - 1$<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each $feature\_subset$ in $\{feature\_subset: feature\_subset \in feature\_subsets\}$ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)$<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#qualify that current $feature\_subset$ is built from the last optimal sub-problem already computed - if not, then discard it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $depth > 0$ and $closest\_prior\_depth \ge 0$ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $last\_optimal\_feat\_combo := optimal\_feature\_subsets[closest\_prior\_depth]$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $last\_optimal\_feat\_combo$ not in $feature\_subset$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue #discard this $feature\_subset$ and loop to the next<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"> contains <img src="https://quicklatex.com/cache3/9e/ql_178e9e178cb8c8575dc65bb28b4caa9e_l3.png"> (or <img src="https://quicklatex.com/cache3/f3/ql_ab231d742c2d1447ccf37b46793738f3_l3.png"> and this <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"> is embryonic)<br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/bc/ql_2121db5e49b90eca9211a7bffd9859bc_l3.png"> build 5-kfolds based on <img src="https://quicklatex.com/cache3/d4/ql_807b31c4c4fa5156cb77ceccba3ad7d4_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each <img src="https://quicklatex.com/cache3/66/ql_caa57949b0e88ff4bcb60b1f069df166_l3.png"> in <img src="https://quicklatex.com/cache3/bc/ql_2121db5e49b90eca9211a7bffd9859bc_l3.png"> {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split data set into <img src="https://quicklatex.com/cache3/cd/ql_219c1ba60601b0242c78e68d401920cd_l3.png">and <img src="https://quicklatex.com/cache3/7f/ql_863e479341153515e2174045d4dd7c7f_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/65/ql_2fc88f15fd17183c7e8f7a46028f5765_l3.png"> build linear regression from <img src="https://quicklatex.com/cache3/7f/ql_863e479341153515e2174045d4dd7c7f_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/1f/ql_442e09a99a95a829a194caf446e81a1f_l3.png"> compute predictions with <img src="https://quicklatex.com/cache3/1a/ql_fecd64ba1a1bd808de662daa6d4bd11a_l3.png"> from <img src="https://quicklatex.com/cache3/7f/ql_863e479341153515e2174045d4dd7c7f_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/80/ql_df87ea20bcd15a5ca6574e5266a92880_l3.png"> compute predictions with <img src="https://quicklatex.com/cache3/1a/ql_fecd64ba1a1bd808de662daa6d4bd11a_l3.png"> from <img src="https://quicklatex.com/cache3/cd/ql_219c1ba60601b0242c78e68d401920cd_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/a3/ql_5a6c55e870d6a77241af15c49d033fa3_l3.png"> compute Root Mean Squared Error between <img src="https://quicklatex.com/cache3/af/ql_15e902e486ef42ddc13991b3de1bf5af_l3.png"> and <img src="https://quicklatex.com/cache3/c0/ql_fd67e9db04ded435c45400d1ad7fd1c0_l3.png">&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of <img src="https://quicklatex.com/cache3/7f/ql_863e479341153515e2174045d4dd7c7f_l3.png">)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/a3/ql_5ef7840d7064de9e72233a3d2bebe5a3_l3.png"> compute Root Mean Squared Error between <img src="https://quicklatex.com/cache3/6c/ql_f115c72fc9d2218eec60ec2a1109a46c_l3.png"> and <img src="https://quicklatex.com/cache3/92/ql_b1d9b29e6749f21d3e91c6b8bfcd8192_l3.png">&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of <img src="https://quicklatex.com/cache3/cd/ql_219c1ba60601b0242c78e68d401920cd_l3.png">)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append <img src="https://quicklatex.com/cache3/4b/ql_50b283d401b62a15520551cc6164634b_l3.png"> to <img src="https://quicklatex.com/cache3/b0/ql_6a333daf3d99119f5163686569bf85b0_l3.png"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#otherwise this $feature\_subset$ contains $last\_optimal\_feat\_combo$ (or $depth==0$ and this $feature\_subset$ is embryonic)<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $kf :=$ build 5-kfolds based on $feature\_subset$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each $fold$ in $kf$ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split data set into $partition_{test}$ and $partition_{train}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $lin\_reg\_model :=$ build linear regression from $partition_{train}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $target_{train\_predicted} :=$ compute predictions with $lin\_reg\_model$ from $partition_{train}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $target_{test\_predicted} :=$ compute predictions with $lin\_reg\_model$ from $partition_{test}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $RMSE_{train} :=$ compute Root Mean Squared Error between $target_{train\_actual}$ and $target_{train\_predicted}$&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of $partition_{train}$)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $RMSE_{test} :=$ compute Root Mean Squared Error between $target_{test\_actual}$ and $target_{test\_predicted}$&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of $partition_{test}$)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append $(RMSE_{train}, RMSE_{test})$ to $scores\_list_{fold}$<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/d0/ql_61aa2f9f01c1e9d6509ef9364ebcd8d0_l3.png"> extract all <img src="https://quicklatex.com/cache3/83/ql_c41a8dec35945fabbdf35a2ec99fcb83_l3.png"> from <img src="https://quicklatex.com/cache3/b0/ql_6a333daf3d99119f5163686569bf85b0_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/1c/ql_e498bc31dd354bcfc5641f101fba461c_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/c8/ql_f968de185b504ccf1983bd8c6e4ddec8_l3.png"> extract all <img src="https://quicklatex.com/cache3/24/ql_044f3cc9d9411469e339bb7917e6a924_l3.png"> from <img src="https://quicklatex.com/cache3/b0/ql_6a333daf3d99119f5163686569bf85b0_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/4f/ql_ce27d5f9a5b089b0300a02d2ad71824f_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if <img src="https://quicklatex.com/cache3/7e/ql_a19c8aeabb0c5e63878a15962e6f787e_l3.png"> is null then {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/b6/ql_5e3e703ceb77d59c44364b4f94dae2b6_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/50/ql_3d8431cdb1e071f4384239a36ded2050_l3.png"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $scores\_list_{fold, RMSE_{train}} :=$ extract all $RMSE_{train}$ from $scores\_list_{fold}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $RMSE := \frac{\sum RMSE_{train}}{size(scores\_list_{fold, RMSE_{train}})}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $scores\_list_{fold, RMSE_{test}} :=$ extract all $RMSE_{test}$ from $scores\_list_{fold}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $\Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\_list_{fold, RMSE_{train}})}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $RMSE_{best}$ is null then {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $RMSE_{best} := RMSE$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $\Delta RMSE_{best} := \Delta RMSE$<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if <img src="https://quicklatex.com/cache3/b0/ql_49878048a712d940aaf5fcf8f3ca0eb0_l3.png"> AND <img src="https://quicklatex.com/cache3/e3/ql_0eb730c3c90f85f74e74884869991ae3_l3.png"> then {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/b6/ql_5e3e703ceb77d59c44364b4f94dae2b6_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/50/ql_3d8431cdb1e071f4384239a36ded2050_l3.png"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set <img src="https://quicklatex.com/cache3/60/ql_8e99bbd6bff37b5c35eab1c1b4b81e60_l3.png"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $RMSE < RMSE_{best}$ AND $lin\_reg\_model.condition\_number \le 100$ then {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $RMSE_{best} := RMSE$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $\Delta RMSE_{best} := \Delta RMSE$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set $optimal\_feature\_subsets[depth] := feature\_subset$<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
@@ -66,16 +66,15 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 </b>
 
 <br><br>
-**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each <img src="https://quicklatex.com/cache3/b5/ql_f715c458bdf31ab130c365714436a3b5_l3.png">, from <img src="https://quicklatex.com/cache3/29/ql_831c2406b034c3ff4a4734ebb9a95129_l3.png"> starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest <img src="https://quicklatex.com/cache3/47/ql_7953429af875db020f6595f75d80f447_l3.png">)**.
+**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each $k$, from $n$ starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest $\Delta RMSE$)**.
 
-The total number of all possible combinations the algorithm will select from is<img src="https://quicklatex.com/cache3/db/ql_010b12517cc0e4477ee87e74a83905db_l3.png">, but it avoids traversing that entire space by leveraging dynamic programming.
+The total number of all possible combinations the algorithm will select from is $\sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1$, but it avoids traversing that entire space by leveraging dynamic programming.
 
 That number can grow quite large rather quickly.
 
-For instance, starting with $n=18$ features, we have <img src="https://quicklatex.com/cache3/da/ql_35f133817d0d6cc968387afbdc9cddda_l3.png"> possible combinations!
+For instance, starting with $n=18$ features, we have $\sum_{r=1}^{18} {18 \choose r} = 2^{18}-1 = 262143$ possible combinations!
 
 But, because it uses the dynamic programming approach (vs. brute force), this algorithm is nevertheless fast, all things considered.
-
 <p><br><br>
 ## Source Code
 The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to [this github repository](https://github.com/sacontreras/dsc-dp-cross-validation).  But it can be adapted for use outside of Juptyer Notebooks as you wish.
