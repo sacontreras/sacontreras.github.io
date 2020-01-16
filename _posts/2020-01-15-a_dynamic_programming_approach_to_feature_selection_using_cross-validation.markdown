@@ -8,6 +8,7 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 <style type="text/css" rel="stylesheet">
     .pseudocode {
         font-family: 'Lucida Console';
+        font-weight: bold;
         display: inline-block;
         background-color: LightGray;
     }
