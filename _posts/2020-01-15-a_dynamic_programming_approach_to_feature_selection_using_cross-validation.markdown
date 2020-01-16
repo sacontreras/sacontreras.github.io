@@ -37,43 +37,50 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <span class="pseudocode">
-COMMENT: this is the table of optimal sub-problems<br>
-set \\( optimal\\_feature\\_subsets := \\) new list<br><br>
+COMMENT: let \\( ofs \\) denote the list of optimal feature subsets (this holds the table of optimal sub-problems)<br>
+set \\( ofs := \\) new list<br><br>
 for \\( k := 1 \\) to \\( n \\) (where \\( n := |\{starting\\ features\}| \\))<br>
 <span class="indent">
-set \\( feature\\_subsets := \\) build each of \\( k\\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!} \\) (from \\( n \\) starting features)<br>
+COMMENT: let \\( fs \\) denote the list of all feature subsets where each \\( fs[k] \\) holds all lists of \\( k \\) features from \\( {n \choose k}=\frac{n!}{k! \cdot (n-k)!} \\) (from \\( n \\) starting features)<br>
+set \\( fs := \\) build all subsets of \\( k \\) features from \\( {n \choose k} \\)<br>
 set \\(depth := k - 1\\)<br><br>
-for each \\( feature\\_subset \\) in \\( feature\\_subsets \\) <br>
+COMMENT: let \\( kfs \\) denote a subset of \\( fs \\) with \\( k \\) features<br>
+for each \\( kfs \\) in \\( fs \\)<br>
 <span class="indent">
-set \\( closest\\_prior\\_depth \\) \\( := min(len(optimal\\_feature\\_subsets)-1, depth-1) \\)<br>
+COMMENT: let \\( cpd \\) denote the closest prior depth<br>
+set \\( cpd \\) \\( := min(len(ofs)-1, depth-1) \\)<br>
 <br>
-COMMENT: qualify that current \\( feature\\_subset \\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
-if \\( depth > 0 \\) and \\( closest\\_prior\\_depth \ge 0 \\) then<br>
+COMMENT: qualify that current \\( kfs \\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
+if \\( depth > 0 \\) and \\( cpd \ge 0 \\) then<br>
 <span class="indent">
-set \\( last\\_optimal\\_feat\\_combo := optimal\\_feature\\_subset[closest\\_prior\\_depth] \\)<br>
-if \\( last\\_optimal\\_feat\\_combo \\) not in \\( feature\\_subset \\) then<br>
+COMMENT: let \\( lofc \\) denote the last optimal feature combination (from a prior depth)<br>
+set \\( lofc := ofs[cpd] \\)<br>
+if \\( lofc \\) not in \\( kfs \\) then<br>
 <span class="indent">
-continue #discard this \\( feature\\_subset \\) and loop to the next<br>
+COMMENT: discard this \\( kfs \\) since it does not contain the last optimal feature combination and then loop to the next \\( kfs \\)<br>
+continue<br>
 </span>
 </span>
 <br><br>
-COMMENT: otherwise this \\( feature\\_subset \\) contains \\( last\\_optimal\\_feat\\_combo \\) (or \\( depth==0 \\) and this \\( feature\\_subset \\) is embryonic)<br>
-set \\( kf := \\) build 5-kfolds based on \\( feature\\_subset \\)<br>
+COMMENT: otherwise this \\( kfs \\) contains \\( lofc \\) (or \\( depth==0 \\) and this \\( kfs \\) is embryonic)<br>
+set \\( kfolds := \\) build 5-kfolds based on \\( kfs \\)<br>
 <br>
-for each \\( fold \\) in \\( kf \\) {<br>
+for each \\( fold \\) in \\( kfolds \\) {<br>
 <span class="indent">
 split data set into \\( partition_{test} \\) and \\( partition_{train} \\)<br>
-set \\( lin\\_reg\\_model := \\) build linear regression from \\( partition_{train} \\)<br>
-set \\( target_{train\\_predicted} := \\) compute predictions with \\( lin\\_reg\\_model \\) from \\( partition_{train} \\)<br>
-set \\( target_{test\\_predicted} := \\) compute predictions with \\( lin\\_reg\\_model \\) from \\( partition_{test} \\)<br>
-set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train\\_actual} \\) and \\( target_{train\\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
-set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test\\_actual} \\) and \\( target_{test\\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
-append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( scores\\_list_{fold} \\)<br>
+COMMENT: let \\( lrm \\) denote the linear regression model built from training data from this \\( fold \\)
+set \\( lrm := \\) build linear regression from \\( partition_{train} \\)<br>
+set \\( target_{train, predicted} := \\) compute predictions with \\( lrm \\) from \\( partition_{train} \\)<br>
+set \\( target_{test, predicted} := \\) compute predictions with \\( lrm \\) from \\( partition_{test} \\)<br>
+set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train, actual} \\) and \\( target_{train, predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
+set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test, actual} \\) and \\( target_{test, predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
+COMMENT: let \\( sl_{fold} \\) denote the list of tracked scores for each \\( fold \\)
+append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( sl_{fold} \\)<br>
 </span><br><br>
-set \\( scores\\_list_{fold, RMSE_{train}} := \\) extract all \\( RMSE_{train} \\) from \\( scores\\_list_{fold} \\)<br>
-set \\( RMSE := \frac{\sum RMSE_{train}}{size(scores\\_list_{fold, RMSE_{train}})} \\)<br>
-set \\( scores\\_list_{fold, RMSE_{test}} := \\) extract all \\( RMSE_{test} \\) from \\( scores\\_list_{fold} \\)<br>
-set \\( \Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\\_list_{fold, RMSE_{train}})} \\)<br><br>
+set \\( sl_{fold, RMSE_{train}} := \\) extract all \\( RMSE_{train} \\) from \\( sl_{fold} \\)<br>
+set \\( RMSE := \frac{\sum RMSE_{train}}{size(sl_{fold, RMSE_{train}})} \\)<br>
+set \\( sl_{fold, RMSE_{test}} := \\) extract all \\( RMSE_{test} \\) from \\( sl_{fold} \\)<br>
+set \\( \Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(sl_{fold, RMSE_{train}})} \\)<br><br>
 if \\( RMSE_{best} \\) is null then<br>
 <span class="indent">
 set \\( RMSE_{best} := RMSE \\)<br>
@@ -81,11 +88,11 @@ set \\( \Delta RMSE_{best} := \Delta RMSE \\)<br>
 </span>
 else<br>
 <span class="indent">
-if \\( RMSE < RMSE_{best} \\) AND \\( lin\\_reg\\_model.condition\\_number \le 100 \\) then<br>
+if \\( RMSE < RMSE_{best} \\) AND \\( lrm.condition\\_number \le 100 \\) then<br>
 <span class="indent">
 set \\(RMSE_{best} := RMSE\\)<br>
 set \\( \Delta RMSE_{best} := \Delta RMSE \\)<br>
-set \\( optimal\\_feature\\_subsets[depth] := feature\\_subset \\)<br><br>
+set \\( ofs[depth] := kfs \\)<br><br>
 </span>
 </span>
 </span>
