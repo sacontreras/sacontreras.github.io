@@ -24,7 +24,7 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
-<font style="font-family: 'Lucida Console';">
+
 &nbsp;&nbsp;&nbsp;#this is the table of optimal sub-problems<br>
 &nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets := new\\ list\\)<br><br>
 &nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\\ features\}|\\)) {<br>
@@ -43,8 +43,8 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each \\(fold\\) in \\(kf\\) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split data set into \\(partition_{test}\\) and \\(partition_{train}\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(lin\\_reg\\_model :=\\) build linear regression from \\(partition_{train}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{train\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model$ from $partition_{train}\\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{test\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model$ from $partition_{test}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{train\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model\\) from \\(partition_{train}\\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(target_{test\\_predicted} :=\\) compute predictions with \\(lin\\_reg\\_model\\) from \\(partition_{test}\\)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{train} :=\\) compute Root Mean Squared Error between \\(target_{train\\_actual}\\) and \\(target_{train\\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{train}\\))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set \\(RMSE_{test} :=\\) compute Root Mean Squared Error between \\(target_{test\\_actual}\\) and \\(target_{test\\_predicted}\\)&nbsp;&nbsp;&nbsp;(i.e. - RMSE of <i>residuals</i> of \\(partition_{test}\\))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append \\((RMSE_{train}, RMSE_{test})\\) to \\(scores\\_list_{fold}\\)<br>
@@ -65,11 +65,11 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;}<br>
-</font>
+
 </b>
 
 <br><br>
-**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each $k$, from $n$ starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\(\Delta RMSE\\))**.
+**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each \\(k\\), from \\(n\\) starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\(\Delta RMSE\\))**.
 
 The total number of all possible combinations the algorithm will select from is \\(\sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1\\), but it avoids traversing that entire space by leveraging dynamic programming.
 
