@@ -12,7 +12,6 @@ github_username:  sacontreras
 
 # Build settings
 markdown: kramdown
-mathjax: true
 highlighter: rouge
 permalink: pretty
 paginate: 5

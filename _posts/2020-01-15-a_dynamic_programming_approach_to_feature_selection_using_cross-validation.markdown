@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title:      "A Dynamic Programming approach to Feature Selection using Cross-Validation"
 date:       2020-01-16 04:29:19 +0000
 permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-validation
