@@ -103,7 +103,8 @@ For instance, starting with \\( n=18 \\) features, we have \\( \sum_{r=1}^{18} {
 But, because it uses the dynamic programming approach (vs. brute force), this algorithm is nevertheless fast, all things considered.
 <p><br><br>
 
-## Source Code
+<h2>Source Code</h2>
+
 The full source code is written in Python, specifically for Jupyter Notebooks, and can was uploaded to [this github repository](https://github.com/sacontreras/dsc-dp-cross-validation).  But it can be adapted for use outside of Juptyer Notebooks as you wish.
 
 The essence is captured in the following function, a snippet from full source code:
@@ -275,29 +276,26 @@ def cv_selection_dp(
     return (scores_df, best_feat_combo, best_score, to_drop)
 </pre>
 
-## Example
+<h2>Example</h2>
 
 I have written a [sample Jupyter Notebook](https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb) that utilizes the API and uploaded it to the [same repository](https://github.com/sacontreras/dsc-dp-cross-validation) in which the source code is found.
 
 Here are a few snippets from that notebook.
 
-### Snippet 1:
+<h3>Snippet 1:</h3>
+<img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-1.png">
 
-![snippet-1 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-1.png)
+<h3>Snippet 2:</h3>
+<img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-2.png">
 
-### Snippet 2:
+<h3>Snippet 3:</h3>
+<img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png">
 
-![snippet-2 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-2.png)
-
-### Snippet 3:
-
-![snippet-3 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png)
-
-Please refer to [the notebook](https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb) for the full example.
+Please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb">the notebook</a> for the full example.
 
 
 
-# References
+<h1>References</h1>
 Gavis-Hughson, S. (2019). The Ultimate Guide to Dynamic Programming - Simple Programmer. Retrieved from https://simpleprogrammer.com/guide-dynamic-programming/
 
 statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code. (2019). Retrieved from https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary
