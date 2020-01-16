@@ -6,7 +6,7 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 ---
 
 <h2>The Algorithm</h2>
-The algorithm builds the entire <i>candidate</i>-solution space (size is \\({n \choose k}\\)) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
+The algorithm builds the entire <i>candidate</i>-solution space (size is ${n \choose k}$) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
 
 It turns out the candidate-solution space does indeed have the two qualities required in order to leverage Dynamic Programming:
 <ol>
@@ -14,82 +14,82 @@ It turns out the candidate-solution space does indeed have the two qualities req
     <li>Overlapping Sub-problems</li>
 </ol>
     
-The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of \\({n \choose k}\\) features, where \\(n\\) is the total number of *continuous* features that we start with and \\(k\\) varies from \\(1\\) to \\(n\\).  
+The solution space is, therefore, built from the bottom up.  The idea is to utilize these properties in order to avoid traversing every combination of ${n \choose k}$ features, where $n$ is the total number of *continuous* features that we start with and $k$ varies from $1$ to $n$.  
 
 Thus, feature-combinations occurring deeper in the tree will be consisered non-optimal (and thereby discarded) if they do not include optimal feature combinations occurring earlier in the tree.  Therefore, by using a Dynamic Programming approach, <b>we avoid needlessly recomputing and re-testing optimal sub-problems that have already been encountered</b>.
 
-*Cross-validation* over 5 *k-folds* is used with a scoring method to select the model (built on training data) that produces the least RMSE and the difference between that RMSE vs. the RMSE computed on the testing data, **with Condition Number \\(\le 100\\)** (in order <b>to minimize colinearity</b>).  This basis is taken *directly* from statsmodels Github [source code](https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary) for the OLS fit results `summary` method but I restrict it even further (statsmodels defines non-colinearity by virtue of this value being less than 1000). ("statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code", 2019)
+*Cross-validation* over 5 *k-folds* is used with a scoring method to select the model (built on training data) that produces the least RMSE and the difference between that RMSE vs. the RMSE computed on the testing data, **with Condition Number $\le 100$** (in order <b>to minimize colinearity</b>).  This basis is taken *directly* from statsmodels Github [source code](https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary) for the OLS fit results `summary` method but I restrict it even further (statsmodels defines non-colinearity by virtue of this value being less than 1000). ("statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code", 2019)
 
-In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized \\(RMSE\\)) **non-colinear** feature-combination subset from the starting set of all features.
+In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized $RMSE$) **non-colinear** feature-combination subset from the starting set of all features.
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <div style="font-family: 'Lucida Console'; background-color: LightGray">
 //this is the table of optimal sub-problems<br>
 
-set \\( optimal\_feature\_subsets := \\) new list<br><br>
+set $ optimal\_feature\_subsets := $ new list<br><br>
 
-for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\ features\}|\\)) {<br>
+for $k := 1$ to $n$ (where $n := |\{starting\ features\}|$) {<br>
 <div style="margin-left: 40px;">
 
-set \\( feature\_subsets := \\) build each of \\(k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}\\) (from \\(n\\) starting features)<br>
+set $ feature\_subsets := $ build each of $k\_features := {n \choose k}=\frac{n!}{k! \cdot (n-k)!}$ (from $n$ starting features)<br>
 
-set \\(depth := k - 1\\)<br><br>
-for each \\(feature\_subset\\) in \\(\{feature\_subset: feature\_subset \in feature\_subsets\}\\) {<br>
+set $depth := k - 1$<br><br>
+for each $feature\_subset$ in $\{feature\_subset: feature\_subset \in feature\_subsets\}$ {<br>
 <div style="margin-left: 40px;">
 
-set \\(closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)\\)<br><br>
-//qualify that current \\(feature\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
+set $closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)$<br><br>
+//qualify that current $feature\_subset$ is built from the last optimal sub-problem already computed - if not, then discard it<br>
 
-if \\(depth > 0\\) and \\(closest\_prior\_depth \ge 0\\) {
+if $depth > 0$ and $closest\_prior\_depth \ge 0$ {
 <div style="margin-left: 40px;">
 
-set \\( last\_optimal\_feat\_combo := optimal\_feature\_subset[closest\_prior\_depth] \\)<br>
-if \\( last\_optimal\_feat\_combo \\) not in \\( feature\_subset \\)
+set $ last\_optimal\_feat\_combo := optimal\_feature\_subset[closest\_prior\_depth] $<br>
+if $ last\_optimal\_feat\_combo $ not in $ feature\_subset $
 <div style="margin-left: 40px;">
 
-continue #discard this \\( feature\_subset \\) and loop to the next
+continue #discard this $ feature\_subset $ and loop to the next
 </div>
 </div>
 }<br>
 <br>
-//otherwise this \\( feature\_subset \\) contains \\( last\_optimal\_feat\_combo \\) (or \\( depth==0 \\) and this \\( feature\_subset \\) is embryonic)<br>
+//otherwise this $ feature\_subset $ contains $ last\_optimal\_feat\_combo $ (or $ depth==0 $ and this $ feature\_subset $ is embryonic)<br>
 
-set \\(kf :=\\) build 5-kfolds based on \\( feature\_subset \\)<br>
+set $kf :=$ build 5-kfolds based on $ feature\_subset $<br>
 <br>
 
-for each \\(fold\\) in \\(kf\\) {
+for each $fold$ in $kf$ {
 <div style="margin-left: 40px;">
 
-split data set into \\( partition_{test} \\) and \\(partition_{train} \\)<br>
-set \\(lin\_reg\_model := \\) build linear regression from \\( partition_{train} \\)<br>
-set \\( target_{train\_predicted} := \\) compute predictions with \\( lin\_reg\_model \\) from \\( partition_{train} \\)<br>
-set \\( target_{test\_predicted} := \\) compute predictions with \\( lin\_reg\_model \\) from \\( partition_{test} \\)<br>
-set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train\_actual} \\) and \\( target_{train\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
-set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test\_actual} \\) and \\( target_{test\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
-append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( scores\_list_{fold} \\)
+split data set into $ partition_{test} $ and $partition_{train} $<br>
+set $lin\_reg\_model := $ build linear regression from $ partition_{train} $<br>
+set $ target_{train\_predicted} := $ compute predictions with $ lin\_reg\_model $ from $ partition_{train} $<br>
+set $ target_{test\_predicted} := $ compute predictions with $ lin\_reg\_model $ from $ partition_{test} $<br>
+set $ RMSE_{train} := $ compute Root Mean Squared Error between $ target_{train\_actual} $ and $ target_{train\_predicted} $ (i.e. - $ RMSE $ of <i>residuals</i> of $ partition_{train} $)<br>
+set $ RMSE_{test} := $ compute Root Mean Squared Error between $ target_{test\_actual} $ and $ target_{test\_predicted} $ (i.e. - $ RMSE $ of <i>residuals</i> of $ partition_{test} $)<br>
+append $ (RMSE_{train}, RMSE_{test}) $ to $ scores\_list_{fold} $
 </div>
 }
 <br><br>
 
-set \\( scores\_list_{fold, RMSE_{train}} := \\) extract all \\( RMSE_{train} \\) from \\( scores\_list_{fold} \\)<br>
-set \\( RMSE := \frac{\sum RMSE_{train}}{size(scores\_list_{fold, RMSE_{train}})} \\)<br>
-set \\( scores\_list_{fold, RMSE_{test}} := \\) extract all \\( RMSE_{test} \\) from \\( scores\_list_{fold} \\)<br>
-set \\( \Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\_list_{fold, RMSE_{train}})} \\)<br><br>
-if \\( RMSE_{best} \\) is null then {
+set $ scores\_list_{fold, RMSE_{train}} := $ extract all $ RMSE_{train} $ from $ scores\_list_{fold} $<br>
+set $ RMSE := \frac{\sum RMSE_{train}}{size(scores\_list_{fold, RMSE_{train}})} $<br>
+set $ scores\_list_{fold, RMSE_{test}} := $ extract all $ RMSE_{test} $ from $ scores\_list_{fold} $<br>
+set $ \Delta RMSE := \frac{\sum |RMSE_{train} - RMSE_{train}|}{size(scores\_list_{fold, RMSE_{train}})} $<br><br>
+if $ RMSE_{best} $ is null then {
 <div style="margin-left: 40px;">
 
-set \\( RMSE_{best} := RMSE \\)<br>
-set \\( \Delta RMSE_{best} := \Delta RMSE \\)
+set $ RMSE_{best} := RMSE $<br>
+set $ \Delta RMSE_{best} := \Delta RMSE $
 </div>
 } else {
 <div style="margin-left: 40px;">
 
-if \\( RMSE < RMSE_{best} \\) AND \\( lin\_reg\_model.condition\_number \le 100 \\) then {
+if $ RMSE < RMSE_{best} $ AND $ lin\_reg\_model.condition\_number \le 100 $ then {
 <div style="margin-left: 40px;">
 
-set \\(RMSE_{best} := RMSE\\)<br>
-set \\( \Delta RMSE_{best} := \Delta RMSE \\)<br>
-set \\( optimal\_feature\_subsets[depth] := feature\_subset \\)
+set $RMSE_{best} := RMSE$<br>
+set $ \Delta RMSE_{best} := \Delta RMSE $<br>
+set $ optimal\_feature\_subsets[depth] := feature\_subset $
 </div>
 }
 </div>
@@ -101,13 +101,13 @@ set \\( optimal\_feature\_subsets[depth] := feature\_subset \\)
 </div>
 <br>
 
-**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each \\( k \\), from \\( n \\) starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\( \Delta RMSE \\))**.
+**This results in cross-validation selecting the best *non-colinear* feature-combination subset for each $ k $, from $ n $ starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest $ \Delta RMSE $)**.
 
-The total number of all possible combinations the algorithm will select from is \\( \sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1 \\), but it avoids traversing that entire space by leveraging dynamic programming.
+The total number of all possible combinations the algorithm will select from is $ \sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1 $, but it avoids traversing that entire space by leveraging dynamic programming.
 
 That number can grow quite large rather quickly.
 
-For instance, starting with \\( n=18 \\) features, we have \\( \sum_{r=1}^{18} {18 \choose r} = 2^{18}-1 = 262143 \\) possible combinations!
+For instance, starting with $ n=18 $ features, we have $ \sum_{r=1}^{18} {18 \choose r} = 2^{18}-1 = 262143 $ possible combinations!
 
 But, because it uses the dynamic programming approach (vs. brute force), this algorithm is nevertheless fast, all things considered.
 <p><br><br>
