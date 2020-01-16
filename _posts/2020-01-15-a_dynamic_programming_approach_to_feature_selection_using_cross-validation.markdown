@@ -24,6 +24,7 @@ In this way, we minimize residuals and thereby select the most predictive model,
 
 The procedure for this is summarized below in pseudo-code:<br><br>
 <b>
+<font stylr="font-family: 'Lucida Console'">
 &nbsp;&nbsp;&nbsp;#this is the table of optimal sub-problems<br>
 &nbsp;&nbsp;&nbsp;set \\(optimal\\_feature\\_subsets := new\\ list\\)<br><br>
 &nbsp;&nbsp;&nbsp;for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\\ features\}|\\)) {<br>
@@ -64,6 +65,7 @@ The procedure for this is summarized below in pseudo-code:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;}<br>
+</font>
 </b>
 
 <br><br>
