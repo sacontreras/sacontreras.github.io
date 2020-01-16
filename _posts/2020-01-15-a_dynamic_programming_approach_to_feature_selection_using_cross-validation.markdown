@@ -23,9 +23,8 @@ Thus, feature-combinations occurring deeper in the tree will be consisered non-o
 In this way, we minimize residuals and thereby select the most predictive model, based on the "best" (minimized \\(RMSE\\)) **non-colinear** feature-combination subset from the starting set of all features.
 
 The procedure for this is summarized below in pseudo-code:<br><br>
-<b>
 <div style="font-family: 'Lucida Console'; background-color: LightGray">
-#this is the table of optimal sub-problems<br>
+//this is the table of optimal sub-problems<br>
 set \\( optimal\_feature\_subsets := \\) new list<br><br>
 
 for \\(k := 1\\) to \\(n\\) (where \\(n := |\{starting\ features\}|\\)) {<br>
@@ -37,7 +36,7 @@ for each \\(feature\_subset\\) in \\(\{feature\_subset: feature\_subset \in feat
 <div style="margin-left: 40px;">
 
 set \\(closest\_prior\_depth := min(len(optimal\_feature\_subsets)-1, depth-1)\\)<br><br>
-#qualify that current \\(feature\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
+//qualify that current \\(feature\_subset\\) is built from the last optimal sub-problem already computed - if not, then discard it<br>
 
 if \\(depth > 0\\) and \\(closest\_prior\_depth \ge 0\\) {
 <div style="margin-left: 40px;">
@@ -50,7 +49,7 @@ continue #discard this \\( feature\_subset \\) and loop to the next
 </div>
 }<br>
 
-#otherwise this \\( feature\_subset \\) contains \\( last\_optimal\_feat\_combo \\) (or \\( depth==0 \\) and this \\( feature\_subset \\) is embryonic)<br>
+//otherwise this \\( feature\_subset \\) contains \\( last\_optimal\_feat\_combo \\) (or \\( depth==0 \\) and this \\( feature\_subset \\) is embryonic)<br>
 
 set \\(kf :=\\) build 5-kfolds based on \\( feature\_subset \\)<br>
 
@@ -91,8 +90,8 @@ set \\( optimal\_feature\_subsets[depth] := feature\_subset \\)
 </div>
 }
 </div>
-</b>
 <br>
+
 **This results in cross-validation selecting the best *non-colinear* feature-combination subset for each \\( k \\), from \\( n \\) starting features, that predicts the outcome, *price*, with the greatest accuracy (lowest \\( \Delta RMSE \\))**.
 
 The total number of all possible combinations the algorithm will select from is \\( \sum_{r=1}^n {n \choose r} = {n \choose 1} + {n \choose 2} + \cdot \cdot \cdot + {n \choose n}= 2^n-1 \\), but it avoids traversing that entire space by leveraging dynamic programming.
