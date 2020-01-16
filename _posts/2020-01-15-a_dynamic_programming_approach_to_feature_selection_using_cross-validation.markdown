@@ -51,9 +51,12 @@ continue #discard this \\( feature\_subset \\) and loop to the next
 </div>
 </div>
 }<br>
-
+<br>
 //otherwise this \\( feature\_subset \\) contains \\( last\_optimal\_feat\_combo \\) (or \\( depth==0 \\) and this \\( feature\_subset \\) is embryonic)<br>
+
 set \\(kf :=\\) build 5-kfolds based on \\( feature\_subset \\)<br>
+<br>
+
 for each \\(fold\\) in \\(kf\\) {
 <div style="margin-left: 40px;">
 
