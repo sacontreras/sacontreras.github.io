@@ -290,14 +290,12 @@ Here are a few snippets from that notebook.
 <br>
 <h3>Snippet 3:</h3>
 <img src="https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png">
-<br>
+<p><br><br>
 Please refer to <a href="https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb">the notebook</a> for the full example.
-
-
-
+<p><br><br>
 <h1>References</h1>
 Gavis-Hughson, S. (2019). The Ultimate Guide to Dynamic Programming - Simple Programmer. Retrieved from https://simpleprogrammer.com/guide-dynamic-programming/
-
+<p><br>
 statsmodels.regression.linear_model — statsmodels v0.11.0rc1 (+56): RegressionResults.summary() method source code. (2019). Retrieved from https://www.statsmodels.org/dev/_modules/statsmodels/regression/linear_model.html#RegressionResults.summary
-
+<p><br>
 Rabbit, B. (2018). Revisions to Is there a math nCr function in python? [duplicate]. Retrieved from https://stackoverflow.com/posts/4941932/revisions
