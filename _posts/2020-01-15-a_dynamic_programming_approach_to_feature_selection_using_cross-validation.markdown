@@ -59,7 +59,7 @@ continue #discard this \\( feature\\_subset \\) and loop to the next<br>
 COMMENT: otherwise this \\( feature\\_subset \\) contains \\( last\\_optimal\\_feat\\_combo \\) (or \\( depth==0 \\) and this \\( feature\\_subset \\) is embryonic)<br>
 set \\( kf := \\) build 5-kfolds based on \\( feature\\_subset \\)<br>
 <br>
-for each \\(fold\\) in \\(kf\\) {<br>
+for each \\( fold \\) in \\( kf \\) {<br>
 <span class="indent">
 split data set into \\( partition_{test} \\) and \\( partition_{train} \\)<br>
 set \\( lin\\_reg\\_model := \\) build linear regression from \\( partition_{train} \\)<br>
@@ -68,8 +68,7 @@ set \\( target_{test\\_predicted} := \\) compute predictions with \\( lin\\_reg\
 set \\( RMSE_{train} := \\) compute Root Mean Squared Error between \\( target_{train\\_actual} \\) and \\( target_{train\\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{train} \\))<br>
 set \\( RMSE_{test} := \\) compute Root Mean Squared Error between \\( target_{test\\_actual} \\) and \\( target_{test\\_predicted} \\) (i.e. - \\( RMSE \\) of <i>residuals</i> of \\( partition_{test} \\))<br>
 append \\( (RMSE_{train}, RMSE_{test}) \\) to \\( scores\\_list_{fold} \\)<br>
-</span>
-<br><br>
+</span><br><br>
 set \\( scores\\_list_{fold, RMSE_{train}} := \\) extract all \\( RMSE_{train} \\) from \\( scores\\_list_{fold} \\)<br>
 set \\( RMSE := \frac{\sum RMSE_{train}}{size(scores\\_list_{fold, RMSE_{train}})} \\)<br>
 set \\( scores\\_list_{fold, RMSE_{test}} := \\) extract all \\( RMSE_{test} \\) from \\( scores\\_list_{fold} \\)<br>
