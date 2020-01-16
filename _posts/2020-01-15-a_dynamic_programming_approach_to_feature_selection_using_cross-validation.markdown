@@ -9,8 +9,10 @@ permalink:  a_dynamic_programming_approach_to_feature_selection_using_cross-vali
 The algorithm builds the entire <i>candidate</i>-solution space (size is ${n \choose k}$) and uses dynamic programming to <i>efficiently</i> search for optimal solutions.
 
 It turns out the candidate-solution space does indeed have the two qualities required in order to leverage Dynamic Programming:
-    1. Optimal Substructure
-    2. Overlapping Sub-problems.
+<ol>
+    <li>Optimal Substructure</li>
+    <li>Overlapping Sub-problems</li>
+</ol>
     
 <font style="font-size: x-small">Note: for an excellent guide on Dynamic Programming please see Gavis-Hughson, S. (2019) listed in the References section.</font>
     
@@ -249,17 +251,21 @@ def cv_selection_dp(
 </pre>
 
 ## Example
+
 I have written a [sample Jupyter Notebook](https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb) that utilizes the API and uploaded it to the [same repository](https://github.com/sacontreras/dsc-dp-cross-validation) in which the source code is found.
 
 Here are a few snippets from that notebook.
 
 ### Snippet 1:
+
 ![snippet-1 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-1.png)
 
 ### Snippet 2:
+
 ![snippet-2 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-2.png)
 
 ### Snippet 3:
+
 ![snippet-3 could not be loaded](https://raw.githubusercontent.com/sacontreras/dsc-dp-cross-validation/master/output-3.png)
 
 Please refer to [the notebook](https://github.com/sacontreras/dsc-dp-cross-validation/blob/master/CrossValFeatureSelection.ipynb) for the full example.
