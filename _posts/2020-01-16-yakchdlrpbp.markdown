@@ -319,8 +319,8 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <p>
 <img src="img/3/CVFFS-4.png">
 <p><br>
-<font style="font-size:smaller" markdown="1">
-Note: output has been truncated in order to save space but from here but pattern is followed until it exhausts all available combinations that qualify; the end results is a list of feature subsets (of length \\(k\\)) that are optimal based on: max \\(R^2\\), minimized RMSE, and Condition No, \\(\le 100\\) (and therefore are considered minimally collinear); to see the full output, please see the separate <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/CrossValFeatureSelection.ipynb" target="_blank">Cross-Validation Forward Selection of Features notebook</a> wrote specifically for this purpose..</font>
+<font style="font-size:smaller"><span markdown="1">
+Note: output has been truncated in order to save space but from here but pattern is followed until it exhausts all available combinations that qualify; the end results is a list of feature subsets (of length \\(k\\)) that are optimal based on: max \\(R^2\\), minimized RMSE, and Condition No, \\(\le 100\\) (and therefore are considered minimally collinear); to see the full output, please see the separate <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/CrossValFeatureSelection.ipynb" target="_blank">Cross-Validation Forward Selection of Features notebook</a> written specifically for this purpose.</span></font>
 <p><br>
 <img src="img/3/CVFFS-5.png">
 <p>
