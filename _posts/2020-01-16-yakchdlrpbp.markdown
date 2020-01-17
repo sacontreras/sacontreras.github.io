@@ -88,7 +88,7 @@ But, I take the latter approach.
 According to James, Witten, Hastie & Tibshirani,
 <span class="indent">
 a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.
-<p><br>
+<br><br>
 (James, Witten, Hastie &amp; Tibshirani, 2012)
 </span>
 <p><br>
