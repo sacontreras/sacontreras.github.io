@@ -29,7 +29,7 @@ But seriously, though, using the King County housing data set to build a Linear 
 Well, my hope is that my project stands out so that one can take away something new so that the above euphemism doesn't apply.
 
 You be the judge.
-
+<p><br>
 <h2>PROJECT OVERVIEW</h2>
 <h3>Goals</h3>
 Of course A goal in my project was to build a linear regression model that is statistically "reliable".
