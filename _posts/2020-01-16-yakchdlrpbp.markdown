@@ -50,7 +50,7 @@ We are not only interested simply in a high value in the the model's *Coefficien
 As part of the procedure when building the final linear regression model, I minimize overfitting with the use of *cross-validation* and combinatorics.
 
 #### Data Bias must be minimized as much as possible
-I employ the standard *hold-out* set technique to separate data when building models into the usual $0.70$/$0.30$ split of *training* data and *testing* data sets.  Models are built using training data.  Part of stastical "reliability" is achieved targeting models with the minimal \\(\Delta RMSE\\) between the *predicted* target (**price**) values from the *training* data set vs. the actual target values from the hold-out *testing* data set.
+I employ the standard *hold-out* set technique to separate data when building models into the usual 0.70/0.30 split ration of *training* data to *testing* data sets.  Models are built using training data.  Part of stastical "reliability" is achieved targeting models with the minimal \\(\Delta RMSE\\) between the *predicted* target (**price**) values from the *training* data set vs. the actual target values from the hold-out *testing* data set.
 
 #### Model validation, Multicollinearity, and Feature Selection
 Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself must be "measured" since not all \\(R^2\\)'s that are equal are created "equally" *given the possibility for collinearity* as well as "over-fitness"!  **These facets, if not addressed, will render a linear regression model stastically *unreliable***.
