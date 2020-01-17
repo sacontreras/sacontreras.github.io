@@ -134,244 +134,244 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 
 ## THE PROCESS
 ### Cleaning the Data Set and EDA
-<img src="./3/EDA-1.png">
+<img src="img/3/EDA-1.png">
 <p>
-<img src="3/EDA-2.png">
+<img src="img/3/EDA-2.png">
 <p>
-<img src="3/EDA-3.png">
+<img src="img/3/EDA-3.png">
 <p>
-<img src="3/EDA-4.png">
+<img src="img/3/EDA-4.png">
 <p>
-<img src="3/EDA-5.png">
+<img src="img/3/EDA-5.png">
 <p>
-<img src="3/EDA-6.png">
+<img src="img/3/EDA-6.png">
 <p>
-<img src="3/EDA-7.png">
+<img src="img/3/EDA-7.png">
 <p>
-<img src="3/EDA-8.png">
+<img src="img/3/EDA-8.png">
 <p>
-<img src="3/EDA-9.png">
+<img src="img/3/EDA-9.png">
 <p>
-<img src="3/EDA-10.png">
+<img src="img/3/EDA-10.png">
 <p>
-<img src="3/EDA-11.png">
+<img src="img/3/EDA-11.png">
 <p>
 <font style="font-size:smaller">Note: output has been truncated in order to save space, therefore the list above is incomplete; for the full list, please refer to <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/Step2.ipynb" target="_blank">the Step 2 Jupyter notebook</a>.</font>
 <p>
-<img src="3/EDA-12.png">
+<img src="img/3/EDA-12.png">
 <p>
-<img src="3/EDA-13.png">
+<img src="img/3/EDA-13.png">
 <p>
-<img src="3/EDA-14.png">
+<img src="img/3/EDA-14.png">
 <p>
-<img src="3/EDA-15.png">
+<img src="img/3/EDA-15.png">
 <p>
-<img src="3/EDA-16.png">
+<img src="img/3/EDA-16.png">
 <p>
-<img src="3/EDA-17.png">
+<img src="img/3/EDA-17.png">
 <p>
-<img src="3/EDA-18.png">
+<img src="img/3/EDA-18.png">
 <p>
-<img src="3/EDA-19.png">
+<img src="img/3/EDA-19.png">
 
 ### EDA: Getting to know the data via a Preliminary Linear Regression Model (bassed on the cleaned data set)
-<img src="3/EDA-PLRM-1.png">
+<img src="img/3/EDA-PLRM-1.png">
 <p>
-<img src="3/EDA-PLRM-2.png">
+<img src="img/3/EDA-PLRM-2.png">
 <p>
-<img src="3/EDA-PLRM-3.png">
+<img src="img/3/EDA-PLRM-3.png">
 <p>
-<img src="3/EDA-PLRM-4.png">
+<img src="img/3/EDA-PLRM-4.png">
 <p>
-<img src="3/EDA-PLRM-5.png">
+<img src="img/3/EDA-PLRM-5.png">
 <p>
-<img src="3/EDA-PLRM-6.png">
+<img src="img/3/EDA-PLRM-6.png">
 <p>
-<img src="3/EDA-PLRM-7.png">
+<img src="img/3/EDA-PLRM-7.png">
 <p>
-<img src="3/EDA-PLRM-8.png">
+<img src="img/3/EDA-PLRM-8.png">
 <p>
-<img src="3/EDA-PLRM-9.png">
+<img src="img/3/EDA-PLRM-9.png">
 <p>
-<img src="3/EDA-PLRM-10.png">
+<img src="img/3/EDA-PLRM-10.png">
 
 ### EDA: Iterative Model Refinement
-<img src="3/EDA-PLRM-11.png">
+<img src="img/3/EDA-PLRM-11.png">
 <font style="font-size:smaller">Note: output has been truncated in order to save space, therefore, I present only the resulting model comparison; for the full model output, please refer to <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
 <p>
-<img src="3/EDA-PLRM-12.png">
+<img src="img/3/EDA-PLRM-12.png">
 <p>
-<img src="3/EDA-PLRM-13.png">
+<img src="img/3/EDA-PLRM-13.png">
 <p>
-<img src="3/EDA-PLRM-14.png">
+<img src="img/3/EDA-PLRM-14.png">
 
 ### Regression Diagnositcs: A Deeper Feature Understanding and a Pathway to Feature Tuning
-<img src="3/FT-1.png">
+<img src="img/3/FT-1.png">
 <p>
-<img src="3/FT-2-1.png">
+<img src="img/3/FT-2-1.png">
 <p>
-<img src="3/FT-2-2.png">
+<img src="img/3/FT-2-2.png">
 <font style="font-size:smaller">Note: although it is not stated in "plain English" in the notebook, <i>the fact that the distrubtion of residuals is heteroskedastic (as well as the distribution of the predictor itself) suggests that <b>this predictor ought to be transformed (log-transformed)</b></i>.</font>
 <p>
-<img src="3/FT-2-3.png">
+<img src="img/3/FT-2-3.png">
 <p>
-<img src="3/FT-3-1.png">
+<img src="img/3/FT-3-1.png">
 <p>
-<img src="3/FT-3-2.png">
+<img src="img/3/FT-3-2.png">
 <p>
-<img src="3/FT-3-3.png">
+<img src="img/3/FT-3-3.png">
 <p>
-<img src="3/FT-4-1.png">
+<img src="img/3/FT-4-1.png">
 <p>
-<img src="3/FT-4-2.png">
+<img src="img/3/FT-4-2.png">
 <font style="font-size:smaller">Note: although it is not stated in "plain English" in the notebook, <i>the fact that the distrubtion of residuals is homoskedastic (as well as a relatively normal distribution of the predictor itself) suggests that <b>this predictor should NOT be transformed (log-transformed)</b></i>; thus, it is simply tracked as a "normal" continuous variable (not to be transformed later).</font>
 <p>
-<img src="3/FT-4-3.png">
+<img src="img/3/FT-4-3.png">
 <font style="font-size:smaller">Note: output has been truncated in order to save space but from here I follow the same pattern to complete this study of all of the predictors in the last model to get a clear idea of which ones should be transformed and which shouldn't; for the full output of Regression Diagnostics, please refer to <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
 
 ### Feature Scaling/Normalization and Transformation: Put the insight garnered from the Analysis of Regression Diagnostics to use!
-<img src="3/DE-1.png">
+<img src="img/3/DE-1.png">
 <p>
-<img src="3/DE-2.png">
+<img src="img/3/DE-2.png">
 <p>
-<img src="3/DE-3.png">
+<img src="img/3/DE-3.png">
 <p>
-<img src="3/DE-4.png">
+<img src="img/3/DE-4.png">
 <p>
-<img src="3/DE-5.png">
+<img src="img/3/DE-5.png">
 <p>
-<img src="3/DE-6.png">
+<img src="img/3/DE-6.png">
 <p>
-<img src="3/DE-7.png">
+<img src="img/3/DE-7.png">
 
 ### EDA, Round 2: Distributions and Linearity Study after scaling/transforming continuous predictors, as well as the response variable
-<img src="3/EDA2-1.png">
+<img src="img/3/EDA2-1.png">
 <p>
-<img src="3/EDA2-2.png">
+<img src="img/3/EDA2-2.png">
 <p>
-<img src="3/EDA2-3.png">
+<img src="img/3/EDA2-3.png">
 <p>
-<img src="3/EDA2-4.png">
+<img src="img/3/EDA2-4.png">
 <p>
-<img src="3/EDA2-5.png">
+<img src="img/3/EDA2-5.png">
 <p>
-<img src="3/EDA2-6.png">
+<img src="img/3/EDA2-6.png">
 
 ### Iterative Refinement Continues
-<img src="3/PLRM2-1.png">
+<img src="img/3/PLRM2-1.png">
 <font style="font-size:smaller">Note: output has been truncated in order to save space, therefore, I present only the resulting model comparison; for the full model output, please refer to <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
 <p>
-<img src="3/PLRM2-2.png">
+<img src="img/3/PLRM2-2.png">
 <p>
-<img src="3/PLRM2-3.png">
+<img src="img/3/PLRM2-3.png">
 <font style="font-size:smaller">Note: from there, I follow this same pattern through a few more iterations in an attempt to vet out the features that are the most collinear; it involved examing correlation matrices and so forth but I will skip over that output since, as it turns out, that effort is largely unnecesary when we can simply rely on mathematics to tell us the answer; so, I will just skip forward to the juicy part but for a full treatment of iterative refinement, please have a look at <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
 
 ### Submit Candidate-Feature Basis for Cross-Validation Forward Selection of Optimal Features
-<img src="3/CVFFS-1.png">
+<img src="img/3/CVFFS-1.png">
 <p>
 <font style="font-size:smaller">Note: for details on how this is done, please refer to <a href="https://sacontreras.github.io/a_dynamic_programming_approach_to_feature_selection_using_cross-validation" target="_blank">the blog post</a> I wrote about this topic.</font>
 <p>
-<img src="3/CVFFS-2.png">
+<img src="img/3/CVFFS-2.png">
 <p>
-<img src="3/CVFFS-3.png">
+<img src="img/3/CVFFS-3.png">
 <p>
-<img src="3/CVFFS-4.png">
+<img src="img/3/CVFFS-4.png">
 <font style="font-size:smaller">Note: output has been truncated in order to save space but from here but pattern is followed until it exhausts all available combinations that qualify; the end results is a list of feature subsets (of length \\(k\\)) that are optimal based on: max \\(R^2\\), minimized RMSE, and Condition No, \\(\le 100\\) (and therefore are considered minimally collinear); to see the full output, please see the separate <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/CrossValFeatureSelection.ipynb" target="_blank">Cross-Validation Forward Selection of Features notebook</a> wrote specifically for this purpose..</font>
 <p>
-<img src="3/CVFFS-5.png">
+<img src="img/3/CVFFS-5.png">
 <p>
-<img src="3/CVFFS-6.png">
+<img src="img/3/CVFFS-6.png">
 Skipping over some details that can be viewed in the main note book, we have the FINAL MODEL...
 <p>
-<img src="3/CVFFS-7.png">
+<img src="img/3/CVFFS-7.png">
 <p>
-<img src="3/CVFFS-8.png">
+<img src="img/3/CVFFS-8.png">
 <p>
-<img src="3/CVFFS-9.png">
+<img src="img/3/CVFFS-9.png">
 
 ### The FINAL Model
-<img src="3/FM-1.png">
+<img src="img/3/FM-1.png">
 
 #### And how does it compare to the very first Preliminary Model?
-<img src="3/FM-2.png">
+<img src="img/3/FM-2.png">
 <p>
-<img src="3/FM-3.png">
+<img src="img/3/FM-3.png">
 Now we can finally move on to the most entertaining portion of the project: A "REAL WORLD" PROBLEM!
 
 ## PUTTING THE FINAL MODEL TO USE: Solving a Real World Problem
-<img src="3/RWP-1.png">
+<img src="img/3/RWP-1.png">
 <p>
-<img src="3/RWP-2.png">
+<img src="img/3/RWP-2.png">
 <p>
-<img src="3/RWP-3.png">
+<img src="img/3/RWP-3.png">
 <p>
 Let us see if the mathematics agrees.
 <p>
-<img src="3/RWP-4.png">
+<img src="img/3/RWP-4.png">
 <p>
-<img src="3/RWP-5.png">
+<img src="img/3/RWP-5.png">
 <p>
-<img src="3/RWP-6.png">
+<img src="img/3/RWP-6.png">
 <p>
-<img src="3/RWP-7.png">
+<img src="img/3/RWP-7.png">
 <p>
 In order to answer this question, we must write a funtion to "undo" transformation and scaling (since that is how the values are stored in the dataframe).
 <p>
 The code below accomplishes this:
 <p>
-<img src="3/RWP-8.png">
+<img src="img/3/RWP-8.png">
 <p>
-<img src="3/RWP-9.png">
+<img src="img/3/RWP-9.png">
 <p>
 We can now answer this question:
 <p>
-<img src="3/RWP-10.png">
+<img src="img/3/RWP-10.png">
 <p>
-<img src="3/RWP-11.png">
+<img src="img/3/RWP-11.png">
 <p>
-<img src="3/RWP-12.png">
+<img src="img/3/RWP-12.png">
 <p>
-<img src="3/RWP-13.png">
+<img src="img/3/RWP-13.png">
 <p>
-<img src="3/RWP-14.png">
+<img src="img/3/RWP-14.png">
 <p>
 Answering this question requires the following special-purpose function:
 <p>
-<img src="3/RWP-15-1.png">
+<img src="img/3/RWP-15-1.png">
 <p>
-<img src="3/RWP-15-2.png">
+<img src="img/3/RWP-15-2.png">
 <p>
-<img src="3/RWP-15-3.png">
+<img src="img/3/RWP-15-3.png">
 <p>
-<img src="3/RWP-15-4.png">
+<img src="img/3/RWP-15-4.png">
 <p>
-<img src="3/RWP-15-5.png">
+<img src="img/3/RWP-15-5.png">
 <p>
-<img src="3/RWP-15-6.png">
+<img src="img/3/RWP-15-6.png">
 <p>
-<img src="3/RWP-15-7.png">
+<img src="img/3/RWP-15-7.png">
 <p>
-<img src="3/RWP-15-8.png">
+<img src="img/3/RWP-15-8.png">
 <p>
-<img src="3/RWP-15-9.png">
+<img src="img/3/RWP-15-9.png">
 <p>
-<img src="3/RWP-15-10.png">
+<img src="img/3/RWP-15-10.png">
 <p>
-<img src="3/RWP-15-11.png">
+<img src="img/3/RWP-15-11.png">
 <p>
-<img src="3/RWP-15-12.png">
+<img src="img/3/RWP-15-12.png">
 <p>
-<img src="3/RWP-16-1.png">
+<img src="img/3/RWP-16-1.png">
 <p>
-<img src="3/RWP-16-2.png">
+<img src="img/3/RWP-16-2.png">
 <p>
-<img src="3/RWP-16-3.png">
+<img src="img/3/RWP-16-3.png">
 <p>
-<img src="3/RWP-17.png">
+<img src="img/3/RWP-17.png">
 <p>
-<img src="3/RWP-18.png">
+<img src="img/3/RWP-18.png">
 <p>
-<img src="3/RWP-19.png">
+<img src="img/3/RWP-19.png">
 
 ## FIN
 
