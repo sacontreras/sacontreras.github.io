@@ -57,15 +57,15 @@ Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself mus
 
 In order to produce a model in which we can be confident in \\(R^2\\), I validate it deterministically.
 
-As will be shown, multicollinearity is a problem.  When multicolinearity is present in a model, we cannot be confident in the statistical significance (*p-value*) of a colinear predictor.  So, collinear predictors must be identified and dealt with in order to provide confidence in the measure of $R^2$ and stastical signficance, in general.
+As will be shown, multicollinearity is a problem.  When multicollinearity is present in a model, we cannot be confident in the statistical significance (*p-value*) of a collinear predictor.  So, collinear predictors must be identified and dealt with in order to provide confidence in the measure of \\(R^2\\) and stastical signficance, in general.
 
-There are two means of handling colinearity of predictors:
+There are two means of handling collinearity of predictors:
 <ol>
-    <li>Introduce an *interaction term*, which will effectively combine two colinear predictors in the model, or</li>
+    <li>Introduce an *interaction term*, which will effectively combine two collinear predictors in the model, or</li>
     <li>Drop a term (feature) from a given set of collinear predictors.</li>
 </ol>
 
-Either approach taken must be backed by mathematical rationale.  That is, some mathematically deterministic method must be employed to first *select* (identify) which features are colinear.
+Either approach taken must be backed by mathematical rationale.  That is, some mathematically deterministic method must be employed to first *select* (identify) which features are collinear.
 
 But, **I take the latter approach**.
 
@@ -89,14 +89,14 @@ Given the following conditions, we have a "GOOD" model when:
 <ol>
     <li>\\(R^2 > .60\\)</li>
     <li>\\(|RMSE(test) - RMSE(train)| \approx 0\\)</li>
-    <li>low <i>Condition Number</i> (measure of colinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**.</li>
+    <li>low <i>Condition Number</i> (measure of collinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**.</li>
 </ol>
 
 The first condition says that we want models that determine the target with greater than 60% "confidence".
 
 The second condition says that the bias toward the training data is minimal when compared to how the model performs on the "hold-out" test data.
 
-The third condition requires that colinearity be mitigated/minimized.
+The third condition requires that collinearity be mitigated/minimized.
 
 #### Toward Regression: Most important aspect is understanding the data!
 To that end, I follow the standard OSEMN model (Lau, 2019) and proceed according to the following steps:
