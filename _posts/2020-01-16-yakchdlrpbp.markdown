@@ -15,9 +15,6 @@ permalink:  yakchdlrpbp
         display: inline-block;
         margin-left: 40px;
     }
-    .inlinemath {
-        display: inline-block;
-    }
 </style>
 
 YAKCHDLRPBP stands for "Yet Another King County Housing Data Linear Regression Project Blog Post".
@@ -89,11 +86,11 @@ But, I take the latter approach.
 
 <h4>Variance Inflation Factor</h4>
 According to James, Witten, Hastie & Tibshirani,
-<div style="margin-left: 40px;">
+<span class="indent">
 a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.
 <p><br>
 (James, Witten, Hastie & Tibshirani, 2012)
-</div>
+</span>
 <p><br>
 
 <h4>Exploratory Data Analysis and Regression Diagnostics</h4>
