@@ -204,7 +204,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/EDA-19.png">
 <p><br>
 
-<h3>EDA: Getting to know the data via a Preliminary Linear Regression Model (bassed on the cleaned data set)</h3>
+<h3>EDA: Getting to know the data via a Preliminary Linear Regression Model (based on the cleaned data set)</h3>
 <img src="img/3/EDA-PLRM-1.png">
 <p>
 <img src="img/3/EDA-PLRM-2.png">
