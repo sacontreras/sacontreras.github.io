@@ -45,18 +45,22 @@ My high-level approach was to build the most "robust", most predictive model - t
 <p><br>
 
 ## High \\(R^2\\) is not enough!
+
 We are not only interested simply in a high value in the the model's *Coefficient of Determination*, \\(R^2\\), but we also want a good feel for the confidence of that measure.
 <p><br>
 
 <h3>"Overfitting" must be minimized</h3>
+
 As part of the procedure when building the final linear regression model, I minimize overfitting with the use of *cross-validation* and combinatorics.
 <p><br>
 
 <h4>Data Bias must be minimized as much as possible</h4>
+
 I employ the standard *hold-out* set technique to separate data when building models into the usual 0.70/0.30 split ratio of *training* data to *testing* data sets.  Models are built using training data.  Part of stastical "reliability" is achieved targeting models with the minimal \\(\Delta RMSE\\) between the *predicted* target (**price**) values from the *training* data set vs. the actual target values from the hold-out *testing* data set.
 <p><br>
 
 <h4>Model validation, Multicollinearity, and Feature Selection</h4>
+
 Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself must be "measured" since not all \\(R^2\\)'s that are equal are created "equally" *given the possibility for collinearity* as well as "over-fitness"!  **These facets, if not addressed, will render a linear regression model stastically *unreliable***.
 
 In order to produce a model in which we can be confident in \\(R^2\\), I validate it deterministically.
@@ -76,8 +80,11 @@ But, **I take the latter approach**.
 
 <h4>Variance Inflation Factor</h4>
 According to James, Witten, Hastie & Tibshirani,
-
-    a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.  (James, Witten, Hastie & Tibshirani, 2012)
+<div style="margin-left: 40px;">
+a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.
+<p><br>
+(James, Witten, Hastie & Tibshirani, 2012)
+</div>
 <p><br>
 
 <h4>Exploratory Data Analysis and Regression Diagnostics</h4>
@@ -85,6 +92,7 @@ Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis 
 <p><br>
 
 <h4>Forward Selection of Features</h4>
+
 Rather than making "educated guesses" in the feature selection process, after cleaning the data set, I use *cross-validation*, *k-folds*, and *combinatorics* to select the "best" model (from the best feature-set combination) built on training data when compared to testing data, based a simple, ***greedy* forward selection** using dynamic programming. 
 
 I authored <a href="https://sacontreras.github.io/a_dynamic_programming_approach_to_feature_selection_using_cross-validation">another blog post</a> focusing specifically on the algorithm I wrote to accomplish this task.
@@ -300,7 +308,9 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <p>
 <img src="img/3/CVFFS-4.png">
 <p><br>
-<font style="font-size:smaller">Note: output has been truncated in order to save space but from here but pattern is followed until it exhausts all available combinations that qualify; the end results is a list of feature subsets (of length \\(k\\)) that are optimal based on: max \\(R^2\\), minimized RMSE, and Condition No, \\(\le 100\\) (and therefore are considered minimally collinear); to see the full output, please see the separate <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/CrossValFeatureSelection.ipynb" target="_blank">Cross-Validation Forward Selection of Features notebook</a> wrote specifically for this purpose..</font>
+<font style="font-size:smaller">
+
+Note: output has been truncated in order to save space but from here but pattern is followed until it exhausts all available combinations that qualify; the end results is a list of feature subsets (of length \\(k\\)) that are optimal based on: max \\(R^2\\), minimized RMSE, and Condition No, \\(\le 100\\) (and therefore are considered minimally collinear); to see the full output, please see the separate <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/CrossValFeatureSelection.ipynb" target="_blank">Cross-Validation Forward Selection of Features notebook</a> wrote specifically for this purpose..</font>
 <p><br>
 <img src="img/3/CVFFS-5.png">
 <p>
