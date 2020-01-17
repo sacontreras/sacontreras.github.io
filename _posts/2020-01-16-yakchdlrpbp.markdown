@@ -29,7 +29,7 @@ You be the judge.
 
 ## PROJECT OVERVIEW
 ### Goals
-Of course A goal in my project was to build a linear regression that is statistically "reliable".
+Of course A goal in my project was to build a linear regression model that is statistically "reliable".
 
 But, for me, an even more important goal was to put that model to use to solve a hypothetical "real world" problem one might encounter when selling a home in King County.
 
