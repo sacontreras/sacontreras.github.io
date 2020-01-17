@@ -155,7 +155,7 @@ After the data is cleaned and all of the required transformations exexuted on th
 
 <h4>Run linear regression experiments to answer real questions</h4>
 Now this is arguably the "funnest" phase of the project.
-
+<br><br>
 With the optimal model in hand, I attempt to apply it toward a hypothetical "real world" problem:
 <ol>
     <li>Which features can be feasibly addressed by a seller to increase the sale price of his/her home?</li>
