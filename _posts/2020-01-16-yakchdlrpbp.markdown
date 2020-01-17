@@ -45,6 +45,7 @@ My high-level approach was to build the most "robust", most predictive model - t
 <p><br>
 
 ## High \\(R^2\\) is not enough!
+<o><br>
 
 We are not only interested simply in a high value in the the model's *Coefficient of Determination*, \\(R^2\\), but we also want a good feel for the confidence of that measure.
 <p><br>
