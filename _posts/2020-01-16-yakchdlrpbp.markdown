@@ -61,18 +61,19 @@ As part of the procedure when building the final linear regression model, I mini
 <p><br>
 
 <h4>Data Bias must be minimized as much as possible</h4>
-
+<span markdown="1">
 I employ the standard *hold-out* set technique to separate data when building models into the usual 0.70/0.30 split ratio of *training* data to *testing* data sets.  Models are built using training data.  Part of stastical "reliability" is achieved targeting models with the minimal \\(\Delta RMSE\\) between the *predicted* target (**price**) values from the *training* data set vs. the actual target values from the hold-out *testing* data set.
+</span>
 <p><br>
 
 <h4>Model validation, Multicollinearity, and Feature Selection</h4>
-
+<span markdown="1">
 Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself must be "measured" since not all \\(R^2\\)'s that are equal are created "equally" *given the possibility for collinearity* as well as "over-fitness"!  **These facets, if not addressed, will render a linear regression model stastically *unreliable***.
 
 In order to produce a model in which we can be confident in \\(R^2\\), I validate it deterministically.
 
 As will be shown, multicollinearity is a problem.  When multicollinearity is present in a model, we cannot be confident in the statistical significance (*p-value*) of a collinear predictor.  So, collinear predictors must be identified and dealt with in order to provide confidence in the measure of \\(R^2\\) and stastical signficance, in general.
-
+</span>
 There are two means of handling collinearity of predictors:
 <ol>
     <li>Introduce an <i>interaction term</i>, which will effectively combine two collinear predictors in the model, or</li>
