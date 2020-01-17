@@ -38,19 +38,23 @@ To that end, those goals were:
 <li>to <b><i>provide an answer to the question, "which features can be FEASIBLY addressed by a seller to increase the sale price of his/her home?"</i></b></li>
 <li>to <b><i>provide a CONCRETE strategy using an optimized linear regression model to accomplish this</i></b>.</li>
 </ol>
-
+<p><br>
 <h3>Approach</h3>
 
 My high-level approach was to build the most "robust", most predictive model - that is, with the highest *Coefficient of Determination*, \\(R^2\\), that *reliably* predicts our target, **price**, with minimized Root Moon Squared Error in the residuals - on the most optimal set of statistically significant features as possible.
+<p><br>
 
 <h3>High \\(R^2\\) is not enough!</h3>
 We are not only interested simply in a high value in the the model's *Coefficient of Determination*, \\(R^2\\), but we also want a good feel for the confidence of that measure.
+<p><br>
 
 <h3>"Overfitting" must be minimized</h3>
 As part of the procedure when building the final linear regression model, I minimize overfitting with the use of *cross-validation* and combinatorics.
+<p><br>
 
 <h4>Data Bias must be minimized as much as possible</h4>
 I employ the standard *hold-out* set technique to separate data when building models into the usual 0.70/0.30 split ratio of *training* data to *testing* data sets.  Models are built using training data.  Part of stastical "reliability" is achieved targeting models with the minimal \\(\Delta RMSE\\) between the *predicted* target (**price**) values from the *training* data set vs. the actual target values from the hold-out *testing* data set.
+<p><br>
 
 <h4>Model validation, Multicollinearity, and Feature Selection</h4>
 Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself must be "measured" since not all \\(R^2\\)'s that are equal are created "equally" *given the possibility for collinearity* as well as "over-fitness"!  **These facets, if not addressed, will render a linear regression model stastically *unreliable***.
@@ -68,14 +72,17 @@ There are two means of handling collinearity of predictors:
 Either approach taken must be backed by mathematical rationale.  That is, some mathematically deterministic method must be employed to first *select* (identify) which features are collinear.
 
 But, **I take the latter approach**.
+<p><br>
 
 <h4>Variance Inflation Factor</h4>
 According to James, Witten, Hastie & Tibshirani,
 
     a ... way to assess multi-collinearity is to compute the variance inﬂation factor (VIF). The VIF is the ratio of the variance of [the coefficient of a predictor] when ﬁtting the full model divided by the variance of [the coefficient of a predictor] if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.  (James, Witten, Hastie & Tibshirani, 2012)
+<p><br>
 
 <h4>Exploratory Data Analysis and Regression Diagnostics</h4>
 Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis phase.  A primary output of this phase is to produce a cleaned data set in which outlier and null values have been "dealt with".  Additionally, Regression Diagnostics, via visualization, provide some insight into the distributions and kurtosis of predictors, as they relate to the target response variable.  **Regression Diagnostics are, therefore, utilized to provide insight into whether or not predictors must be *transformed***.
+<p><br>
 
 <h4>Forward Selection of Features</h4>
 Rather than making "educated guesses" in the feature selection process, after cleaning the data set, I use *cross-validation*, *k-folds*, and *combinatorics* to select the "best" model (from the best feature-set combination) built on training data when compared to testing data, based a simple, ***greedy* forward selection** using dynamic programming. 
@@ -83,6 +90,7 @@ Rather than making "educated guesses" in the feature selection process, after cl
 I authored <a href="https://sacontreras.github.io/a_dynamic_programming_approach_to_feature_selection_using_cross-validation">another blog post</a> focusing specifically on the algorithm I wrote to accomplish this task.
 
 But, some effort is made up front to "intelligently" reduce the set of starting features by building a preliminary model and then removing features which obviously do not inluence **price** or are highly correlated, based on Regression Diagnostics as well as the *Variance Inflation Factor* (VIF) of a given feature.
+<p><br>
 
 <h4>Conditions for success - i.e. whether a linear regression model is "good" or "bad"</h4>
 Given the following conditions, we have a "GOOD" model when:
@@ -97,6 +105,7 @@ The first condition says that we want models that determine the target with grea
 The second condition says that the bias toward the training data is minimal when compared to how the model performs on the "hold-out" test data.
 
 The third condition requires that collinearity be mitigated/minimized.
+<p><br>
 
 <h4>Toward Regression: Most important aspect is understanding the data!</h4>
 To that end, I follow the standard OSEMN model (Lau, 2019) and proceed according to the following steps:
@@ -118,9 +127,11 @@ To that end, I follow the standard OSEMN model (Lau, 2019) and proceed according
     </li>
     <li>EDA: Scale, Normalize, Transform features in the data set as necessary for the working model</li>
 </ol>
+<p><br>
 
 <h4>Build the "Optimal" Model</h4>
 After the data is cleaned and all of the required transformations exexuted on the predictors, and after having initially "weeded out" predictors which do not manifest a linear relaltionship to the target response variable, I execute the above-mentioned algorithm to select the set of features which will result in the optimal model according to the criteria mentioned in the "Conditions for Success" section.  At this point, I will have the optimal model for this data set that is statistically "reliable".
+<p><br>
 
 <h4>Run linear regression experiments to answer real questions</h4>
 Now this is arguably the "funnest" phase of the project.
@@ -130,7 +141,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
     <li>Which features can be feasibly addressed by a seller to increase the sale price of his/her home?</li>
     <li>Provide a concrete strategy using the optimized linear regression model to accomplish this.</li>
 </ol>
-
+<p><br>
 
 <h2>THE PROCESS</h2>
 <h3>Cleaning the Data Set and EDA</h3>
@@ -173,6 +184,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/EDA-18.png">
 <p>
 <img src="img/3/EDA-19.png">
+<p><br>
 
 <h3>EDA: Getting to know the data via a Preliminary Linear Regression Model (bassed on the cleaned data set)</h3>
 <img src="img/3/EDA-PLRM-1.png">
@@ -194,6 +206,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/EDA-PLRM-9.png">
 <p>
 <img src="img/3/EDA-PLRM-10.png">
+<p><br>
 
 <h3>EDA: Iterative Model Refinement</h3>
 <img src="img/3/EDA-PLRM-11.png">
@@ -205,6 +218,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/EDA-PLRM-13.png">
 <p>
 <img src="img/3/EDA-PLRM-14.png">
+<p><br>
 
 <h3>Regression Diagnositcs: A Deeper Feature Understanding and a Pathway to Feature Tuning</h3>
 <img src="img/3/FT-1.png">
@@ -232,6 +246,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/FT-4-3.png">
 <p><br>
 <font style="font-size:smaller">Note: output has been truncated in order to save space but from here I follow the same pattern to complete this study of all of the predictors in the last model to get a clear idea of which ones should be transformed and which shouldn't; for the full output of Regression Diagnostics, please refer to <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
+<p><br>
 
 <h3>Feature Scaling/Normalization and Transformation: Put the insight garnered from the Analysis of Regression Diagnostics to use!</h3>
 <img src="img/3/DE-1.png">
@@ -247,6 +262,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/DE-6.png">
 <p>
 <img src="img/3/DE-7.png">
+<p><br>
 
 <h3>EDA, Round 2: Distributions and Linearity Study after scaling/transforming continuous predictors, as well as the response variable</h3>
 <img src="img/3/EDA2-1.png">
@@ -260,6 +276,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/EDA2-5.png">
 <p>
 <img src="img/3/EDA2-6.png">
+<p><br>
 
 <h3>Iterative Refinement Continues</h3>
 <img src="img/3/PLRM2-1.png">
@@ -271,6 +288,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 <img src="img/3/PLRM2-3.png">
 <p><br>
 <font style="font-size:smaller">Note: from there, I follow this same pattern through a few more iterations in an attempt to vet out the features that are the most collinear; it involved examing correlation matrices and so forth but I will skip over that output since, as it turns out, that effort is largely unnecesary when we can simply rely on mathematics to tell us the answer; so, I will just skip forward to the juicy part but for a full treatment of iterative refinement, please have a look at <a href="https://github.com/sacontreras/dsc-project-module-01/blob/master/KingCountyHouseSales.ipynb" target="_blank">the main notebook</a>.</font>
+<p><br>
 
 <h3>Submit Candidate-Feature Basis for Cross-Validation Forward Selection of Optimal Features</h3>
 <img src="img/3/CVFFS-1.png">
@@ -296,9 +314,11 @@ Skipping over some details that can be viewed in the main note book, we have the
 <img src="img/3/CVFFS-8.png">
 <p>
 <img src="img/3/CVFFS-9.png">
+<p><br>
 
 <h3>The FINAL Model</h3>
 <img src="img/3/FM-1.png">
+<p><br>
 
 <h4>And how does it compare to the very first Preliminary Model?</h4>
 <img src="img/3/FM-2.png">
@@ -306,6 +326,7 @@ Skipping over some details that can be viewed in the main note book, we have the
 <img src="img/3/FM-3.png">
 <p><br>
 Now we can finally move on to the most entertaining portion of the project: A "REAL WORLD" PROBLEM!
+<p><br>
 
 <h2>PUTTING THE FINAL MODEL TO USE: Solving a Real World Problem</h2>
 <img src="img/3/RWP-1.png">
@@ -381,6 +402,7 @@ Answering this question requires the following special-purpose function:
 <img src="img/3/RWP-18.png">
 <p>
 <img src="img/3/RWP-19.png">
+<p><br>
 
 <h2>FIN</h2>
 <p><br><br>
