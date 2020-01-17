@@ -94,7 +94,9 @@ a ... way to assess multi-collinearity is to compute the variance inﬂation fac
 <p><br>
 
 <h4>Exploratory Data Analysis and Regression Diagnostics</h4>
+<span markdown="1">
 Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis phase.  A primary output of this phase is to produce a cleaned data set in which outlier and null values have been "dealt with".  Additionally, Regression Diagnostics, via visualization, provide some insight into the distributions and kurtosis of predictors, as they relate to the target response variable.  **Regression Diagnostics are, therefore, utilized to provide insight into whether or not predictors must be *transformed***.
+</span>
 <p><br>
 
 <h4>Forward Selection of Features</h4>
