@@ -61,7 +61,7 @@ As will be shown, multicollinearity is a problem.  When multicollinearity is pre
 
 There are two means of handling collinearity of predictors:
 <ol>
-    <li>Introduce an *interaction term*, which will effectively combine two collinear predictors in the model, or</li>
+    <li>Introduce an <i>interaction term</i>, which will effectively combine two collinear predictors in the model, or</li>
     <li>Drop a term (feature) from a given set of collinear predictors.</li>
 </ol>
 
