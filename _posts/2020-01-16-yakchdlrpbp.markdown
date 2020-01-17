@@ -113,11 +113,9 @@ But, some effort is made up front to "intelligently" reduce the set of starting 
 <span markdown="1">
 Given the following conditions, we have a "GOOD" model when:
 <br>
-<ol>
-    <li>\\(R^2 > .60\\)</li>
-    <li>\\(|RMSE(test) - RMSE(train)| \approx 0\\)</li>
-    <li>low <i>Condition Number</i> (measure of collinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**</li>
-</ol>
+1. \\(R^2 > .60\\)<br>
+2. \\(|RMSE(test) - RMSE(train)| \approx 0\\)<br>
+3. low <i>Condition Number</i> (measure of collinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**
 <br><br>
 The first condition says that we want models that determine the target with greater than 60% "confidence".
 <br><br>
