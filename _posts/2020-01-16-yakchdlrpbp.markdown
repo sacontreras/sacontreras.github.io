@@ -134,7 +134,7 @@ With the optimal model in hand, I attempt to apply it toward a hypothetical "rea
 
 ## THE PROCESS
 ### Cleaning the Data Set and EDA
-<img src="3/EDA-1.png">
+<img src="./3/EDA-1.png">
 <p>
 <img src="3/EDA-2.png">
 <p>
