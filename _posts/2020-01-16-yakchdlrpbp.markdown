@@ -98,12 +98,13 @@ Utilizing Regression Diagnostics is a key part of the Exploratory Data Analysis 
 <p><br>
 
 <h4>Forward Selection of Features</h4>
-
+<span markdown="1">
 Rather than making "educated guesses" in the feature selection process, after cleaning the data set, I use *cross-validation*, *k-folds*, and *combinatorics* to select the "best" model (from the best feature-set combination) built on training data when compared to testing data, based a simple, ***greedy* forward selection** using dynamic programming. 
 
 I authored <a href="https://sacontreras.github.io/a_dynamic_programming_approach_to_feature_selection_using_cross-validation">another blog post</a> focusing specifically on the algorithm I wrote to accomplish this task.
 
 But, some effort is made up front to "intelligently" reduce the set of starting features by building a preliminary model and then removing features which obviously do not inluence **price** or are highly correlated, based on Regression Diagnostics as well as the *Variance Inflation Factor* (VIF) of a given feature.
+</span>
 <p><br>
 
 <h4>Conditions for success - i.e. whether a linear regression model is "good" or "bad"</h4>
