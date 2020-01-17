@@ -69,9 +69,9 @@ I employ the standard *hold-out* set technique to separate data when building mo
 <h4>Model validation, Multicollinearity, and Feature Selection</h4>
 <span markdown="1">
 Confidence in the computed *Coefficient of Determination*, \\(R^2\\), itself must be "measured" since not all \\(R^2\\)'s that are equal are created "equally" *given the possibility for collinearity* as well as "over-fitness"!  **These facets, if not addressed, will render a linear regression model stastically *unreliable***.
-
+<p><br>
 In order to produce a model in which we can be confident in \\(R^2\\), I validate it deterministically.
-
+<p><br>
 As will be shown, multicollinearity is a problem.  When multicollinearity is present in a model, we cannot be confident in the statistical significance (*p-value*) of a collinear predictor.  So, collinear predictors must be identified and dealt with in order to provide confidence in the measure of \\(R^2\\) and stastical signficance, in general.
 </span>
 <p><br>
