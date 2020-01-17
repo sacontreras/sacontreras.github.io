@@ -80,10 +80,11 @@ There are two means of handling collinearity of predictors:
     <li>Introduce an <i>interaction term</i>, which will effectively combine two collinear predictors in the model, or</li>
     <li>Drop a term (feature) from a given set of collinear predictors.</li>
 </ol>
-
+<p><br>
 Either approach taken must be backed by mathematical rationale.  That is, some mathematically deterministic method must be employed to first *select* (identify) which features are collinear.
 
-But, **I take the latter approach**.
+<p><br>
+But, I take the latter approach.
 <p><br>
 
 <h4>Variance Inflation Factor</h4>
