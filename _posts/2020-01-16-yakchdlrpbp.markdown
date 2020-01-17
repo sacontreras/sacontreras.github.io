@@ -87,8 +87,8 @@ But, some effort is made up front to "intelligently" reduce the set of starting 
 #### Conditions for success - i.e. whether a linear regression model is "good" or "bad"
 Given the following conditions, we have a "GOOD" model when:
 <ol>
-    <li>\\(R^2 > .60\\)</li>
-    <li>\\(|RMSE(test) - RMSE(train)| \approx 0\\)</li>
+    <li><span>\\(R^2 > .60\\)</span></li>
+    <li><span>\\(|RMSE(test) - RMSE(train)| \approx 0\\)</span></li>
     <li>low <i>Condition Number</i> (measure of collinearity)... much less than 1000; but **I target Condtion Number threshold of 100 or less**.</li>
 </ol>
 
