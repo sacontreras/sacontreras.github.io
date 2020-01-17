@@ -44,7 +44,7 @@ To that end, those goals were:
 My high-level approach was to build the most "robust", most predictive model - that is, with the highest *Coefficient of Determination*, \\(R^2\\), that *reliably* predicts our target, **price**, with minimized Root Moon Squared Error in the residuals - on the most optimal set of statistically significant features as possible.
 <p><br>
 
-<h3>High \\(R^2\\) is not enough!</h3>
+## High \\(R^2\\) is not enough!
 We are not only interested simply in a high value in the the model's *Coefficient of Determination*, \\(R^2\\), but we also want a good feel for the confidence of that measure.
 <p><br>
 
