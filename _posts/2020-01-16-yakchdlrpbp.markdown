@@ -15,6 +15,9 @@ permalink:  yakchdlrpbp
         display: inline-block;
         margin-left: 40px;
     }
+    .inlinemath {
+        display: inline-block;
+    }
 </style>
 
 YAKCHDLRPBP stands for "Yet Another King County Housing Data Linear Regression Project Blog Post".
@@ -40,8 +43,9 @@ To that end, those goals were:
 </ol>
 <p><br>
 <h3>Approach</h3>
-
+<span class="inlinemath">
 My high-level approach was to build the most "robust", most predictive model - that is, with the highest *Coefficient of Determination*, \\(R^2\\), that *reliably* predicts our target, **price**, with minimized Root Moon Squared Error in the residuals - on the most optimal set of statistically significant features as possible.
+</span>
 <p><br>
 
 ## High \\(R^2\\) is not enough!
