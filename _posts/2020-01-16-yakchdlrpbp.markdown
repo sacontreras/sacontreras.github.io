@@ -110,6 +110,7 @@ But, some effort is made up front to "intelligently" reduce the set of starting 
 <p><br>
 
 <h4>Conditions for success - i.e. whether a linear regression model is "good" or "bad"</h4>
+<span markdown="1">
 Given the following conditions, we have a "GOOD" model when:
 
 1. \\(R^2 > .60\\)
@@ -121,6 +122,7 @@ The first condition says that we want models that determine the target with grea
 The second condition says that the bias toward the training data is minimal when compared to how the model performs on the "hold-out" test data.
 
 The third condition requires that collinearity be mitigated/minimized.
+</span>
 <p><br>
 
 <h4>Toward Regression: Most important aspect is understanding the data!</h4>
