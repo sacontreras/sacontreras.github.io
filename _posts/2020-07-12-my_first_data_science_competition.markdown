@@ -83,7 +83,7 @@ Additionally, when a categorical is not necessarily of high-cardinality but is, 
 ### Text-Analysis (NLP) Techniques Brought into the Mix
 Many of you are likely very familiar with this already.  In my case, I used `KMeans` classification on top of `TFIDFVectorizer`, initialized with a set of preprocessing rules - for example, to impute lower-case, convert all whitespace to a single "_", and remove all non-alphanumeric characters - as an experimental technique to reduce dimensionality by almost one full order; that is, 2000+ unique categories classified down to less than 200 unique class representations.
 
-Modeling results showed that, when isolating to the single (high-cardinality) string-categorical variable, accuracies list in decreasing order were:
+Modeling results showed that, when isolating to the single (high-cardinality) string-categorical variable, accuracies listed in decreasing order were:
 1. `TF-IDF` normalized, and then `Target-Encoded`
 2. `TF-IDF Kmeans` classified, and then `Target-Encoded`
 3. `Target-Encoded`
