@@ -12,11 +12,9 @@ github_username:  sacontreras
 
 # Build settings
 markdown: kramdown
-kramdown:
-  math_engine: katex
 highlighter: rouge
 permalink: pretty
 paginate: 5
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-gems: [jekyll-paginate, jekyll-feed, kramdown-math-katex]
+gems: [jekyll-paginate, jekyll-feed]
