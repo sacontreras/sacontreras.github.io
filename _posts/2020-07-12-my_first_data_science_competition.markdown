@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "My First "Competitive" Data Science Project"
+title:      "My First Data Science Competition"
 date:       2020-07-12 22:55:06 -0400
 permalink:  my_first_data_science_competition
 ---
