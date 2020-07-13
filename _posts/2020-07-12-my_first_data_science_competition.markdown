@@ -1,12 +1,12 @@
 ---
 layout: post
-title:      "My First Data Science Competition"
-date:       2020-07-13 02:55:05 +0000
+title:      "My First "Competitive" Data Science Project"
+date:       2020-07-12 22:55:06 -0400
 permalink:  my_first_data_science_competition
 ---
 
 ## Intro
-I recently participated in a competitive data science competition.  Being less than a year into learning Data Science, this is my first competition.  I'll put the cart before the horse a bit.  Surprisingly, I did better than I thought I would.  But since this project is associated with one of my official projects in my Data Science curriculum, I had to stop at some point... at least as far as my curriculum-project is concerned.  I will continue to refine my methods and models as time permits; there are 9 months left in the competition.  **As I write this, I currently sit ranked 873 out of 9742 competitors... the 91st percentile**.
+I recently participated in very first my first data science competition.  Being less than a year into learning Data Science, this is my first competition.  I'll put the cart before the horse a bit.  Surprisingly, I did better than I thought I would.  But since this project is associated with one of my official projects in my Data Science curriculum, I had to stop at some point... at least as far as my curriculum-project is concerned.  I will continue to refine my methods and models as time permits; there are 9 months left in the competition.  **As I write this, I currently sit ranked 873 out of 9742 competitors... the 91st percentile**.
 
 The competitor in the top spot on the leaderboard built a model with an accuracy of 82.94%.  **My best model features a leaderboard accuracy of 81.82%**.  That doesn't seem like that much of a difference, does it?  But, as I would come to learn, in Competitive Data Science, that is a rather large rift.  For example, for the top 50 on the leaderboard, the difference between the rank 1 competitor and the rank 50 competitor is 82.94% vs. 82.68% accuracy, respectively.
 
