@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Competitive Gradient Descent for Dummies"
-date:       2020-10-21 11:10:53 +0000
+date:       2020-10-21 07:10:55 -0400
 permalink:  competitive_gradient_descent_for_dummies
 ---
 
@@ -65,6 +65,6 @@ When a "game" only involves one player, the description of minimizing cost is re
 
 Simple, right?
 
-Yeah, right.  Not.  But I have I have given an inkling of what it might resemble.
+Yeah, right.  Not.  But I hope I have given at least an inkling of what it might resemble.
 
 
